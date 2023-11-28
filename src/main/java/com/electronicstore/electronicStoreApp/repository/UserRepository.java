@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User,Integer> {
+public interface UserRepository extends JpaRepository<User,String> {
 
 
     User findById(UserDto id);
@@ -17,4 +17,6 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     Optional<User> findUserByEmail(String email);
 
     //public List<User> findByNameContaining(String keyword);
+
+    List<User> findByNameContaining(String keyword);
 }

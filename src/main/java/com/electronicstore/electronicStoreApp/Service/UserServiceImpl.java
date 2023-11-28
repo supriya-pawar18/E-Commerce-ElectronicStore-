@@ -1,9 +1,9 @@
 package com.electronicstore.electronicStoreApp.Service;
 
+import com.electronicstore.electronicStoreApp.config.AppContants;
 import com.electronicstore.electronicStoreApp.dto.PageableResponse;
 import com.electronicstore.electronicStoreApp.dto.UserDto;
 import com.electronicstore.electronicStoreApp.entites.User;
-import com.electronicstore.electronicStoreApp.exception.GlobalExceptionHandler;
 import com.electronicstore.electronicStoreApp.exception.ResourceNotFoundException;
 import com.electronicstore.electronicStoreApp.helper.Helper;
 import com.electronicstore.electronicStoreApp.repository.UserRepository;
@@ -18,7 +18,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserServiceI{
@@ -32,6 +33,8 @@ public class UserServiceImpl implements UserServiceI{
     @Override
     public UserDto CreateUser(UserDto userDto) {
         logger.info("Initiating dao request for creating user record");
+        String string = UUID.randomUUID().toString();
+        userDto.setId(string);
         User user1 = this.dtoToUser(userDto);
         User saveuser = this.userRepo.save(user1);
         logger.info("Completed dao request for creating user record");
@@ -51,15 +54,15 @@ public class UserServiceImpl implements UserServiceI{
     }
 
     @Override
-    public UserDto getUserById(UserDto id) {
+    public UserDto getUserById(String id) {
         logger.info("Initiating dao request for getting user record with user id");
-        User user = this.userRepo.findById(id);
+        User user = this.userRepo.findById(id).orElseThrow(()->new ResourceNotFoundException(AppContants.NOT_FOUND));
         logger.info("Completed dao request for getting user record with user id");
         return this.userToDto(user);
     }
 
     @Override
-    public void deleteUser(Integer id) {
+    public void deleteUser(String id) {
         logger.info("Initiating dao request for deleting user record");
         User users = this.userRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found"));
         this.userRepo.delete(users);
@@ -74,7 +77,7 @@ public class UserServiceImpl implements UserServiceI{
     }
 
     @Override
-    public UserDto updateUser(UserDto userDto, Integer id) {
+    public UserDto updateUser(UserDto userDto, String id) {
         logger.info("Initiating dao request for creating user record with user id{}:",id);
         User user = userRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with gievn id"));
 
@@ -91,7 +94,7 @@ public class UserServiceImpl implements UserServiceI{
     }
 
 
-    //    @Override
+//    @Override
 //    public List<User> searchuser(String keyword) {
 //        List<User> byNameContaining = userRepo.findByNameContaining(keyword);
 //        return byNameContaining;

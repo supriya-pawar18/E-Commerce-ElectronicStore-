@@ -9,4 +9,8 @@ public class AppContants {
 
     public static final String SORT_DIR="asc";
 
+    public static final String NOT_FOUND="Resource not found with user user id";
+
+
+
 }
