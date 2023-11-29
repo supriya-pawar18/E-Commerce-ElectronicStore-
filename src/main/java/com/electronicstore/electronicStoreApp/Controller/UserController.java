@@ -7,19 +7,25 @@ import com.electronicstore.electronicStoreApp.dto.ImageResponse;
 import com.electronicstore.electronicStoreApp.dto.PageableResponse;
 import com.electronicstore.electronicStoreApp.dto.UserDto;
 import com.electronicstore.electronicStoreApp.entites.User;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import com.electronicstore.electronicStoreApp.config.AppContants;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/user")
@@ -101,7 +107,13 @@ public class UserController {
     }
 
     //server user img
-
+    @GetMapping(value = "/getImage/{id}")
+    public void serveUserImage(@PathVariable String id, HttpServletResponse response) throws IOException {
+      UserDto user = this.userServiceI.getUserById(id);
+      InputStream inputStream = fileService.getResource(imageUploadPath, user.getImgname());
+      response.setContentType(MediaType.IMAGE_PNG_VALUE);
+      StreamUtils.copy(inputStream,response.getOutputStream());
+   }
 
     }
 
