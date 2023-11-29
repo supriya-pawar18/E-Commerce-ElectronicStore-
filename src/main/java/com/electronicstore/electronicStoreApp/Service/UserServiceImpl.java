@@ -11,12 +11,15 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -27,6 +30,8 @@ public class UserServiceImpl implements UserServiceI{
     private UserRepository userRepo;
    @Autowired
     private ModelMapper modelMapper;
+   @Value("{@user.profile.image.path}")
+   private String imagePath;
 
     private Logger logger= LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -64,8 +69,8 @@ public class UserServiceImpl implements UserServiceI{
     @Override
     public void deleteUser(String id) {
         logger.info("Initiating dao request for deleting user record");
-        User users = this.userRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found"));
-        this.userRepo.delete(users);
+        User users = userRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found"));
+        userRepo.delete(users);
     }
 
     @Override

@@ -1,32 +1,28 @@
-package com.electronicstore.electronicStoreApp.entites;
+package com.electronicstore.electronicStoreApp.dto;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Categories")
-public class Category {
+public class CategoryDto {
 
-    @Id
     private String categoryId;
 
-    @Column(length = 100)
+    @NotBlank
+    @Min(value = 4,message = "title must be of minimun 4chars")
     private String title;
 
-    @Column(length = 500)
+    @NotBlank(message = "Description Required !!!")
     private String description;
 
     private String coverImage;
-
-
 }
