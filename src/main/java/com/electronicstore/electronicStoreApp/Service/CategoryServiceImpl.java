@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class CategoryServiceImpl implements CategoryService{
 
@@ -25,6 +27,10 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public CategoryDto create(CategoryDto categoryDto) {
+        //categoryId random
+
+        String id = UUID.randomUUID().toString();
+        categoryDto.setCategoryId(id);
         Category category = modelMapper.map(categoryDto, Category.class);
         Category save = categoryRepo.save(category);
         return modelMapper.map(save,CategoryDto.class);
