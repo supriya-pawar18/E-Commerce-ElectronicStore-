@@ -1,16 +1,22 @@
 package com.electronicstore.electronicStoreApp.dto;
 
 import jakarta.persistence.Column;
+import lombok.*;
 
 import javax.xml.crypto.Data;
 import java.util.Date;
 
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class ProductDto {
+
     private String productId;
 
     private String title;
 
-    @Column(length = 1000)
     private String description;
 
     private int price;
