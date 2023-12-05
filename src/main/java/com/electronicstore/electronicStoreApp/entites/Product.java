@@ -20,7 +20,6 @@ public class Product {
 
     private String title;
 
-    @Column(length = 1000)
     private String description;
 
     private int price;

@@ -1,8 +1,7 @@
-package com.electronicstore.electronicStoreApp.Service;
+package com.electronicstore.electronicStoreApp.ServiceI;
 
 import com.electronicstore.electronicStoreApp.dto.CategoryDto;
 import com.electronicstore.electronicStoreApp.dto.PageableResponse;
-import org.springframework.data.domain.Page;
 
 public interface CategoryService {
 

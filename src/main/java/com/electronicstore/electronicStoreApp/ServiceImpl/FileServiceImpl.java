@@ -1,5 +1,6 @@
-package com.electronicstore.electronicStoreApp.Service;
+package com.electronicstore.electronicStoreApp.ServiceImpl;
 
+import com.electronicstore.electronicStoreApp.ServiceI.FileService;
 import com.electronicstore.electronicStoreApp.exception.BadApiRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,7 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 @Service
-public class FileServiceImpl implements FileService{
+public class FileServiceImpl implements FileService {
 
     private Logger logger= LoggerFactory.getLogger(FileServiceImpl.class);
     @Override

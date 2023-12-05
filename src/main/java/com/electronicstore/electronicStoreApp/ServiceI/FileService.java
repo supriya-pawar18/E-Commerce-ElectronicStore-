@@ -1,4 +1,4 @@
-package com.electronicstore.electronicStoreApp.Service;
+package com.electronicstore.electronicStoreApp.ServiceI;
 
 import org.springframework.web.multipart.MultipartFile;
 

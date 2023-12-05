@@ -20,10 +20,8 @@ public class Category {
     @Id
     private String categoryId;
 
-    @Column(length = 100)
     private String title;
 
-    @Column(length = 500)
     private String description;
 
     private String coverImage;

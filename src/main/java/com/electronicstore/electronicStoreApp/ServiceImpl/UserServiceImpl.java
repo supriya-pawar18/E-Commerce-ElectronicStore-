@@ -1,6 +1,7 @@
-package com.electronicstore.electronicStoreApp.Service;
+package com.electronicstore.electronicStoreApp.ServiceImpl;
 
-import com.electronicstore.electronicStoreApp.config.AppContants;
+import com.electronicstore.electronicStoreApp.ServiceI.UserServiceI;
+import com.electronicstore.electronicStoreApp.helper.AppContants;
 import com.electronicstore.electronicStoreApp.dto.PageableResponse;
 import com.electronicstore.electronicStoreApp.dto.UserDto;
 import com.electronicstore.electronicStoreApp.entites.User;
@@ -18,14 +19,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class UserServiceImpl implements UserServiceI{
+public class UserServiceImpl implements UserServiceI {
    @Autowired
     private UserRepository userRepo;
    @Autowired

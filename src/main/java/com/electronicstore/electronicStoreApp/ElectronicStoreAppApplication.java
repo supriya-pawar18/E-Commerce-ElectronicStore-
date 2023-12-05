@@ -14,8 +14,8 @@ public class ElectronicStoreAppApplication {
 	}
 
 	@Bean
-	public ModelMapper modelMapper() {
-		return new ModelMapper();
+	public org.modelmapper.ModelMapper modelMapper() {
+		return new org.modelmapper.ModelMapper();
 	}
 
 }

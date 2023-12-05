@@ -1,9 +1,7 @@
-package com.electronicstore.electronicStoreApp.Service;
+package com.electronicstore.electronicStoreApp.ServiceI;
 
 import com.electronicstore.electronicStoreApp.dto.PageableResponse;
 import com.electronicstore.electronicStoreApp.dto.ProductDto;
-
-import java.util.List;
 
 public interface ProductService {
 

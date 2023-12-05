@@ -16,17 +16,14 @@ public class User {
 
     private String name;
 
-    @Column(length = 10)
     private String password;
 
-    @Column(unique = true)
     private String email;
 
     private String imgname;
 
     private String gender;
 
-    @Column(length = 1000)
     private String about;
 
 }

@@ -1,12 +1,10 @@
 package com.electronicstore.electronicStoreApp.Controller;
 
-import com.electronicstore.electronicStoreApp.Service.FileService;
-import com.electronicstore.electronicStoreApp.Service.UserServiceI;
-import com.electronicstore.electronicStoreApp.Service.UserServiceImpl;
+import com.electronicstore.electronicStoreApp.ServiceI.FileService;
+import com.electronicstore.electronicStoreApp.ServiceI.UserServiceI;
 import com.electronicstore.electronicStoreApp.dto.ImageResponse;
 import com.electronicstore.electronicStoreApp.dto.PageableResponse;
 import com.electronicstore.electronicStoreApp.dto.UserDto;
-import com.electronicstore.electronicStoreApp.entites.User;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -18,14 +16,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
-import com.electronicstore.electronicStoreApp.config.AppContants;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/user")
@@ -61,23 +55,23 @@ public class UserController {
 
      @GetMapping("/getById/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable UserDto id) {
-        logger.info("Entering request for getting user record with user id");
+        logger.info("Entering request for getting user record with user id {}:",id);
         UserDto userById = this.userServiceI.getUserById(id.getId());
-        logger.info("completed request for getting user record with user id");
+        logger.info("completed request for getting user record with user id {}:" ,id);
         return new ResponseEntity<>(userById, HttpStatus.OK);
     }
 
     public ResponseEntity<UserDto> updateUser(UserDto userDto, String id) {
-        logger.info("Entering request for updating user record with user id");
+        logger.info("Entering request for updating user record with user id {}:",id);
         UserDto userDto1 = this.userServiceI.updateUser(userDto, id);
-        logger.info("Completed request for updating user record with user id");
+        logger.info("Completed request for updating user record with user id {}:",id);
         return new ResponseEntity<>(userDto1,HttpStatus.OK);
     }
         @GetMapping("/delete")
     public void deleteUser(@PathVariable String id) {
-            logger.info("Entering request for getting user record with user id");
+            logger.info("Entering request for getting user record with user id {}:",id);
             this.userServiceI.deleteUser(id);
-           logger.info("completed request for deleting user record with user id");
+           logger.info("completed request for deleting user record with user id {}:",id);
            new ResponseEntity<>("delete successfully", HttpStatus.OK);
     }
     @GetMapping("/email/{email}")
