@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.electronicstore.electronicStoreApp.helper.AppContants.PRODUCT_DELETED;
+
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -44,7 +46,7 @@ public class ProductController {
         logger.info("Entering request for deleting product record with product id {}:",productId);
         productService.delete(productId);
 
-        ApiResponse apiResponse = ApiResponse.builder().message("Product deleted successfully !!").status(HttpStatus.OK).success(true).build();
+        ApiResponse apiResponse = ApiResponse.builder().message(PRODUCT_DELETED).status(HttpStatus.OK).success(true).build();
         logger.info("Completed request for deleting product record with product id{}:",productId);
         return new ResponseEntity<>(apiResponse,HttpStatus.OK);
     }

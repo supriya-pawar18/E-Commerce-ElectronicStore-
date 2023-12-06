@@ -9,6 +9,7 @@ import org.hibernate.Length;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class User {
 
     @Id
@@ -26,4 +27,6 @@ public class User {
 
     private String about;
 
+
 }
+

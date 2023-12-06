@@ -2,6 +2,7 @@ package com.electronicstore.electronicStoreApp.Controller;
 
 import com.electronicstore.electronicStoreApp.ServiceI.FileService;
 import com.electronicstore.electronicStoreApp.ServiceI.UserServiceI;
+import com.electronicstore.electronicStoreApp.dto.ApiResponse;
 import com.electronicstore.electronicStoreApp.dto.ImageResponse;
 import com.electronicstore.electronicStoreApp.dto.PageableResponse;
 import com.electronicstore.electronicStoreApp.dto.UserDto;
@@ -20,6 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+
+import static com.electronicstore.electronicStoreApp.helper.AppContants.CATEGORY_DELETED;
+import static com.electronicstore.electronicStoreApp.helper.AppContants.USER_DELETED;
 
 @RestController
 @RequestMapping("/user")
@@ -71,7 +75,8 @@ public class UserController {
     public void deleteUser(@PathVariable String id) {
             logger.info("Entering request for getting user record with user id {}:",id);
             this.userServiceI.deleteUser(id);
-           logger.info("completed request for deleting user record with user id {}:",id);
+            ApiResponse response = ApiResponse.builder().message(USER_DELETED).status(HttpStatus.OK).build();
+            logger.info("completed request for deleting user record with user id {}:",id);
            new ResponseEntity<>("delete successfully", HttpStatus.OK);
     }
     @GetMapping("/email/{email}")
