@@ -13,9 +13,13 @@ public interface UserServiceI {
 
     void deleteUser(String id);
 
+   // UserDto getUserByEmail(String email);
+
     UserDto findUserByEmail(String email);
 
     public UserDto updateUser(UserDto userDto, String id);
+
+   // UserDto getUserByEmail(String emailId);
 
 
     // public List<User> searchuser(String keyword);
