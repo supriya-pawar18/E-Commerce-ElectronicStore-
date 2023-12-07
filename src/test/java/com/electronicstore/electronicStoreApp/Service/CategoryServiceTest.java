@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.Optional;
+
 @SpringBootTest
 public class CategoryServiceTest {
 
@@ -48,5 +50,27 @@ public class CategoryServiceTest {
         Assertions.assertNotNull(categoryDto);
 
         Assertions.assertEquals("mobile", categoryDto.getTitle());
+    }
+
+    @Test
+    public void upadateCat() {
+
+        String categoryId = "bacdefcgf";
+
+        CategoryDto categoryDto = CategoryDto.builder()
+                .title("mobile")
+                .description("This is mobile related data")
+                .coverImage("abc.png")
+                .build();
+
+        Mockito.when(categoryRepo.findById(Mockito.anyString())).thenReturn(Optional.of(category));
+        Mockito.when(categoryRepo.save(Mockito.any())).thenReturn(category);
+
+        CategoryDto updateCat = categoryService.update(categoryDto, categoryId);
+        System.out.println(updateCat.getTitle());
+        Assertions.assertNotNull(categoryDto);
+
+        Assertions.assertEquals(categoryDto.getTitle(), updateCat.getTitle(), "Name is not equal");
+
     }
 }
