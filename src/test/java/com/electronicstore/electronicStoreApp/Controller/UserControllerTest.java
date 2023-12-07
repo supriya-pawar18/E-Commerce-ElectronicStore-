@@ -42,7 +42,6 @@ public class UserControllerTest {
 
     @BeforeEach
     private void init(){
-      //  role= Role.builder().roleId("abc").roleName("NORMAL").build();
 
         user= User.builder()
                 .name("supriya")
@@ -84,16 +83,16 @@ public class UserControllerTest {
     @Test
     public void updateUserTest() throws Exception {
         String id="12";
-        UserDto userDto=this.modelMapper.map(user,UserDto.class);
-        Mockito.when(userServiceI.updateUser(Mockito.any(),Mockito.anyString())).thenReturn(userDto);
+        UserDto dto=this.modelMapper.map(user,UserDto.class);
+        Mockito.when(userServiceI.createUser(Mockito.any())).thenReturn(dto);
 
-        this.mockMvc.perform(MockMvcRequestBuilders.put("/user/" + id)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(convertObjectToJsonString(user))
-                        .accept(MediaType.APPLICATION_JSON)
-                )
+        this.mockMvc.perform(
+                        MockMvcRequestBuilders.put("/user/" + id)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(convertObjectToJsonString(user))
+                                .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name").exists());
     }
 
