@@ -43,7 +43,7 @@ public class CategoryServiceTest {
     }
 
     @Test
-    public void createUserTest() {
+    public void createCatTest() {
         Mockito.when(categoryRepo.save(Mockito.any())).thenReturn(category);
         CategoryDto categoryDto = categoryService.create(modelMapper.map(category, CategoryDto.class));
         System.out.println(categoryDto.getTitle());
@@ -71,6 +71,19 @@ public class CategoryServiceTest {
         Assertions.assertNotNull(categoryDto);
 
         Assertions.assertEquals(categoryDto.getTitle(), updateCat.getTitle(), "Name is not equal");
+
+    }
+
+    @Test
+    public void deleteCatTest() {
+
+        String categoryId = "abcdefghijklm";
+
+        Mockito.when(categoryRepo.findById(categoryId)).thenReturn(Optional.of(category));
+
+        categoryService.delete(categoryId);
+
+        Mockito.verify(categoryRepo, Mockito.times(1)).delete(category);
 
     }
 }
