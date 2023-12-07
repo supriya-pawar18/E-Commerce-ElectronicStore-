@@ -40,7 +40,7 @@ public class UserController {
     @PostMapping("/")
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
         logger.info("Entering request for creating new user record");
-        UserDto createUser = this.userServiceI.CreateUser(userDto);
+        UserDto createUser = this.userServiceI.createUser(userDto);
         logger.info("Completed request for creating new user record");
         return new ResponseEntity<>(createUser, HttpStatus.CREATED);
     }

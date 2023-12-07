@@ -5,7 +5,7 @@ import com.electronicstore.electronicStoreApp.dto.UserDto;
 
 public interface UserServiceI {
 
-    public UserDto CreateUser(UserDto userDto);
+    public UserDto createUser(UserDto userDto);
 
     PageableResponse<UserDto> getAllUsers(int pageNumber, int pageSize, String sortBy, String sortDir);
 

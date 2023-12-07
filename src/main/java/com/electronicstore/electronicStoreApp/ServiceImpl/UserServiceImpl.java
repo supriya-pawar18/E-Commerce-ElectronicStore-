@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserServiceI {
     private Logger logger= LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Override
-    public UserDto CreateUser(UserDto userDto) {
+    public UserDto createUser(UserDto userDto) {
         logger.info("Initiating dao request for creating user record");
         String string = UUID.randomUUID().toString();
         userDto.setId(string);

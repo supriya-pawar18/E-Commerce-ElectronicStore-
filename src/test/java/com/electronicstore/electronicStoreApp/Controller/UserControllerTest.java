@@ -57,7 +57,7 @@ public class UserControllerTest {
 
        UserDto dto=modelMapper.map(user,UserDto.class);
 
-        Mockito.when(userServiceI.CreateUser(Mockito.any())).thenReturn(dto);
+        Mockito.when(userServiceI.createUser(Mockito.any())).thenReturn(dto);
 
         this.mockMvc.perform(
                 MockMvcRequestBuilders.post("/user/")
