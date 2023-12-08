@@ -15,7 +15,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -84,6 +90,30 @@ public class CategoryServiceTest {
         categoryService.delete(categoryId);
 
         Mockito.verify(categoryRepo, Mockito.times(1)).delete(category);
+
+    }
+    @Test
+    public void getAllCatTest(){
+
+        Category category = Category.builder()
+                .title("tv")
+                .description("This is tv related information")
+                .coverImage("gef.png")
+                .build();
+
+        Category category1 = Category.builder()
+                .title("mobile")
+                .description("This is mobile related data")
+                .coverImage("lmn.png")
+                .build();
+
+        List<Category> CatList = Arrays.asList(category, category1);
+
+        Page<Category> page = new PageImpl<>(CatList);
+
+        Mockito.when(categoryRepo.findAll((Pageable) Mockito.any())).thenReturn(page);
+
+        Sort sort = Sort.by("name").ascending();
 
     }
 }

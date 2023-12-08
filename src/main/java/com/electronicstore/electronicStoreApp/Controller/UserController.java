@@ -37,6 +37,13 @@ public class UserController {
     @Value("${user.profile.image.path}")
     private String imageUploadPath;
 
+    /**
+     * @param userDto
+     * @return http status for save data
+     * @author SUPRIYA
+     * @apiNote To save user data in  database
+     * @since V 1.0
+     */
     @PostMapping("/")
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
         logger.info("Entering request for creating new user record");
@@ -45,6 +52,12 @@ public class UserController {
         return new ResponseEntity<>(createUser, HttpStatus.CREATED);
     }
 
+    /**
+     * @return http status for getting data
+     * @author SUPRIYA
+     * @apiNote To get all user data from database
+     * @since V 1.0
+     */
     @GetMapping("/getAll")
     public ResponseEntity<PageableResponse<UserDto>> getAllUsers(
             @RequestParam(value = "pageNumber",defaultValue = "0",required = false) int pageNumber,
@@ -57,6 +70,12 @@ public class UserController {
         return new ResponseEntity<>(userServiceI.getAllUsers(pageNumber,pageSize,sortBy,sortDir), HttpStatus.OK);
     }
 
+    /**
+     * @return http status for get single data
+     * @author SUPRIYA
+     * @apiNote To get single user data from database using id
+     * @since V 1.0
+     */
      @GetMapping("/getById/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable UserDto id) {
         logger.info("Entering request for getting user record with user id {}:",id);
@@ -65,13 +84,15 @@ public class UserController {
         return new ResponseEntity<>(userById, HttpStatus.OK);
     }
 
+    @PutMapping("/updateUser/{id}")
     public ResponseEntity<UserDto> updateUser(UserDto userDto, String id) {
         logger.info("Entering request for updating user record with user id {}:",id);
         UserDto userDto1 = this.userServiceI.updateUser(userDto, id);
         logger.info("Completed request for updating user record with user id {}:",id);
         return new ResponseEntity<>(userDto1,HttpStatus.OK);
     }
-        @GetMapping("/delete")
+
+    @GetMapping("/delete/{id}")
     public void deleteUser(@PathVariable String id) {
             logger.info("Entering request for getting user record with user id {}:",id);
             this.userServiceI.deleteUser(id);

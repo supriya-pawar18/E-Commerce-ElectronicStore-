@@ -84,7 +84,7 @@ public class UserControllerTest {
     public void updateUserTest() throws Exception {
         String id="12";
         UserDto dto=this.modelMapper.map(user,UserDto.class);
-        Mockito.when(userServiceI.createUser(Mockito.any())).thenReturn(dto);
+        Mockito.when(userServiceI.updateUser(Mockito.any(),Mockito.anyString())).thenReturn(dto);
 
         this.mockMvc.perform(
                         MockMvcRequestBuilders.put("/user/" + id)

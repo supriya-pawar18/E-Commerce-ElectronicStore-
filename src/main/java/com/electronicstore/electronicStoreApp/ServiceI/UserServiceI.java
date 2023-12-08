@@ -19,7 +19,9 @@ public interface UserServiceI {
 
     public UserDto updateUser(UserDto userDto, String id);
 
-   // UserDto getUserByEmail(String emailId);
+
+
+    // UserDto getUserByEmail(String emailId);
 
 
     // public List<User> searchuser(String keyword);
