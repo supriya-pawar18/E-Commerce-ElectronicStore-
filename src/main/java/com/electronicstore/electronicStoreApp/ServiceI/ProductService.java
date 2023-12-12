@@ -26,4 +26,8 @@ public interface ProductService {
     //search product
     PageableResponse<ProductDto> searchByTitle(String subTitle,int pageNumber,int pageSize,String sortBy,String sortDir);
 
+    ProductDto createWithCategory(ProductDto productDto, String categoryId);
+
+    ProductDto updateCategory(String productId, String category);
+
 }

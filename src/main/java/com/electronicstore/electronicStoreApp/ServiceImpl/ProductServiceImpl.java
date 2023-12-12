@@ -3,9 +3,11 @@ package com.electronicstore.electronicStoreApp.ServiceImpl;
 import com.electronicstore.electronicStoreApp.ServiceI.ProductService;
 import com.electronicstore.electronicStoreApp.dto.PageableResponse;
 import com.electronicstore.electronicStoreApp.dto.ProductDto;
+import com.electronicstore.electronicStoreApp.entites.Category;
 import com.electronicstore.electronicStoreApp.entites.Product;
 import com.electronicstore.electronicStoreApp.exception.ResourceNotFoundException;
 import com.electronicstore.electronicStoreApp.helper.Helper;
+import com.electronicstore.electronicStoreApp.repository.CategoryRepo;
 import com.electronicstore.electronicStoreApp.repository.ProductRepo;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -17,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -24,6 +27,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductRepo productRepo;
+
+    @Autowired
+    private CategoryRepo categoryRepo;
 
     @Autowired
     private ModelMapper mapper;
@@ -110,4 +116,30 @@ public class ProductServiceImpl implements ProductService {
         logger.info("Completed dao request for searching by title product record");
         return Helper.getPageableResponse(page,ProductDto.class);
     }
+
+    @Override
+    public ProductDto createWithCategory(ProductDto productDto, String categoryId) {
+        Category category = categoryRepo.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException(AppConstants.NOT_FOUND));
+
+        Product product = mapper.map(productDto, Product.class);
+        String productId = UUID.randomUUID().toString();
+        product.setProductId(productId);
+        product.setAddedDate(new Date());
+        product.setCategory(category);
+        Product save = productRepo.save(product);
+
+        ProductDto map = mapper.map(save, ProductDto.class);
+        return map;
+    }
+
+    @Override
+    public ProductDto updateCategory(String productId, String categoryId) {
+
+        Product product = productRepo.findById(productId).orElseThrow(() -> new ResourceNotFoundException(AppConstants.NOT_FOUND));
+        Category category = categoryRepo.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException(AppConstants.NOT_FOUND));
+        product.setCategory(category);
+        Product saveProduct = productRepo.save(product);
+        return mapper.map(saveProduct, ProductDto.class);
+    }
+
 }

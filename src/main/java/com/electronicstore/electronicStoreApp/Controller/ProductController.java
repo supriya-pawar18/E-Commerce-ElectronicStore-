@@ -135,5 +135,22 @@ public class ProductController {
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
+    @PostMapping("/{categoryId}/product")
+    public ResponseEntity<ProductDto> createProductWithCategory(
+            @PathVariable("categoryId") String categoryId,@RequestBody ProductDto productDto) {
+        logger.info("Entering request to create product with categoryID:{}", categoryId);
+        ProductDto productDto1 = productService.createWithCategory(productDto, categoryId);
+        logger.info("Completed request to create product with categoryID:{}", categoryId);
+        return new ResponseEntity<>(productDto1, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{categoryId}/products/{productId}")
+    public ResponseEntity<ProductDto> updateCategoryOfProduct(
+            @PathVariable String categoryId, @PathVariable String productId
+    ) {
+        ProductDto productDto = productService.updateCategory(productId, categoryId);
+        return new ResponseEntity<>(productDto, HttpStatus.OK);
+
+    }
 
 }
