@@ -2,6 +2,7 @@ package com.electronicstore.electronicStoreApp.Controller;
 
 import com.electronicstore.electronicStoreApp.ServiceI.CategoryService;
 import com.electronicstore.electronicStoreApp.dto.CategoryDto;
+import com.electronicstore.electronicStoreApp.dto.UserDto;
 import com.electronicstore.electronicStoreApp.entites.Category;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,13 +54,13 @@ public class CategoryControllerTest {
         Mockito.when(categoryService.create(Mockito.any())).thenReturn(dto);
 
         this.mockMvc.perform(
-                        MockMvcRequestBuilders.post("/user/")
+                        MockMvcRequestBuilders.post("/category/")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(convertObjectToJsonString(category))
                                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.name").exists());
+                .andExpect(jsonPath("$.title").exists());
 
     }
 
@@ -70,6 +71,22 @@ public class CategoryControllerTest {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Test
+    public void updateCategoryTest() throws Exception {
+        String categoryId="12";
+        CategoryDto dto=this.modelMapper.map(category,CategoryDto.class);
+        Mockito.when(categoryService.update(Mockito.any(),Mockito.anyString())).thenReturn(dto);
+
+        this.mockMvc.perform(
+                        MockMvcRequestBuilders.put("/category/updateCat/" + categoryId)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(convertObjectToJsonString(category))
+                                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").exists());
     }
 
 }
