@@ -34,15 +34,14 @@ public class UserController {
     @Autowired
     private FileService fileService;
     private Logger logger= LoggerFactory.getLogger(UserController.class);
+
     @Value("${user.profile.image.path}")
     private String imageUploadPath;
 
     /**
      * @param userDto
      * @return http status for save data
-     * @author SUPRIYA
-     * @apiNote To save user data in  database
-     * @since V 1.0
+     * @apiNote This Api is used to create new user in databased
      */
     @PostMapping("/")
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
@@ -54,9 +53,8 @@ public class UserController {
 
     /**
      * @return http status for getting data
-     * @author SUPRIYA
+     * @paramuserDto used to pass to create new create
      * @apiNote To get all user data from database
-     * @since V 1.0
      */
     @GetMapping("/getAll")
     public ResponseEntity<PageableResponse<UserDto>> getAllUsers(
@@ -71,10 +69,9 @@ public class UserController {
     }
 
     /**
-     * @return http status for get single data
-     * @author SUPRIYA
+     * @return http status for get single data from database
+     * * @param userDto UserDto Object
      * @apiNote To get single user data from database using id
-     * @since V 1.0
      */
      @GetMapping("/getById/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable UserDto id) {
@@ -84,6 +81,11 @@ public class UserController {
         return new ResponseEntity<>(userById, HttpStatus.OK);
     }
 
+    /**
+     * @param userDto UserDto Object
+     * @return userDto
+     * @apiNote This Api is used to update user data with id in  database
+     */
     @PutMapping("/updateUser/{id}")
     public ResponseEntity<UserDto> updateUser(UserDto userDto, String id) {
         logger.info("Entering request for updating user record with user id {}:",id);
@@ -92,6 +94,11 @@ public class UserController {
         return new ResponseEntity<>(userDto1,HttpStatus.OK);
     }
 
+    /**
+     * *@param userDto UserDto Object
+     * @return userDto
+     * @apiNote This Api is used to delete user data with id in  database
+     */
     @GetMapping("/delete/{id}")
     public void deleteUser(@PathVariable String id) {
             logger.info("Entering request for getting user record with user id {}:",id);
@@ -100,6 +107,12 @@ public class UserController {
             logger.info("completed request for deleting user record with user id {}:",id);
            new ResponseEntity<>("delete successfully", HttpStatus.OK);
     }
+
+    /**
+     * @paramuserDto UserDto Object
+     * @return userDto
+     * @apiNote This Api is used to get user data with email in database
+     */
     @GetMapping("/email/{email}")
     public UserDto getUserByEmail(@PathVariable String email) {
         logger.info("completed request for getting user record with user email");
@@ -112,6 +125,12 @@ public class UserController {
 //    }
 
    // upload user img
+
+    /**
+     * @paramuserDto UserDto Object
+     * @return userDto
+     * @apiNote This Api is used to update image  with id in database
+     */
     @PostMapping("/image/{id}")
     public  ResponseEntity<ImageResponse> uploadingImage(@RequestParam("userImage")MultipartFile imgname,@PathVariable String id) throws IOException {
 
@@ -127,6 +146,12 @@ public class UserController {
     }
 
     //server user img
+
+    /**
+     * @paramuserDto UserDto Object
+     * @return userDto
+     * @apiNote This Api is used to Get image with id from database
+     */
     @GetMapping(value = "/getImage/{id}")
     public void serveUserImage(@PathVariable String id, HttpServletResponse response) throws IOException {
       UserDto user = this.userServiceI.getUserById(id);

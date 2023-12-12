@@ -23,6 +23,11 @@ public class ProductController {
     private Logger logger= LoggerFactory.getLogger(ProductController.class);
 
     //create
+    /**
+     * *@param productDto
+     * @return http status for save data
+     * @apiNote This Api is used to create New Category in databased
+     */
     @PostMapping("/create")
     public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto){
         logger.info("Entering request for creating new product record");
@@ -32,7 +37,12 @@ public class ProductController {
     }
 
     //update
-    @GetMapping("/updateProd/{productId}")
+    /**
+     * *@param productDto
+     * @return http status for Update Product data
+     * @apiNote This Api is used to Update Product in databased
+     */
+    @PutMapping("/updateProd/{productId}")
     public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDto,@PathVariable String productId){
         logger.info("Entering request for updating product record with product id {}:",productId);
         ProductDto updatedPro = productService.update(productDto,productId);
@@ -41,6 +51,11 @@ public class ProductController {
     }
 
     //delete
+    /**
+     * *@param productDto
+     * @return http status for Delete Product data
+     * @apiNote This Api is used to Delete Product with id from databased
+     */
     @DeleteMapping("/{productId}")
     public ResponseEntity<ApiResponse> deleteProd(@PathVariable String productId){
         logger.info("Entering request for deleting product record with product id {}:",productId);
@@ -52,6 +67,11 @@ public class ProductController {
     }
 
     //get single
+    /**
+     * *@param productDto
+     * @return http status for Get Single Product data
+     * @apiNote This Api is used to Get Single Product from databased using id
+     */
     @GetMapping("/{productId}")
     public ResponseEntity<ProductDto> getProduct(@PathVariable String productId){
         logger.info("Entering request for getting single product record with product id {} :",productId);
@@ -61,6 +81,11 @@ public class ProductController {
     }
 
     //get all
+    /**
+     * *@param productDto
+     * @return http status for Get All Product data
+     * @apiNote This Api is used to Get All Product from databased
+     */
     @GetMapping("/")
     public ResponseEntity<PageableResponse<ProductDto>> getAll(
             @RequestParam(value = "pageNumber",defaultValue = "0",required = false) int pageNumber,
@@ -74,6 +99,11 @@ public class ProductController {
     }
 
     //get all live
+    /**
+     * *@param productDto
+     * @return http status for Get All Live Product data
+     * @apiNote This Api is used to Get All Live Product from databased
+     */
     @GetMapping("/live")
     public ResponseEntity<PageableResponse<ProductDto>> getAllLive(
             @RequestParam(value = "pageNumber",defaultValue = "0",required = false) int pageNumber,
@@ -87,6 +117,11 @@ public class ProductController {
     }
 
     //get search
+    /**
+     * *@param productDto
+     * @return http status for Search Product data
+     * @apiNote This Api is used to Search Product from databased
+     */
     @GetMapping("/search/{query}")
     public ResponseEntity<PageableResponse<ProductDto>> searchByTitle(
             @PathVariable String query,

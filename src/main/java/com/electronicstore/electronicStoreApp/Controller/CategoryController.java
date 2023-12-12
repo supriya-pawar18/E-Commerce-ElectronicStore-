@@ -38,6 +38,11 @@ public class CategoryController {
 
 
     //create
+    /**
+     * @param categoryDto
+     * @return http status for save data
+     * @apiNote This Api is used to create New Categroy in databased
+     */
     @PostMapping("/")
     public ResponseEntity<CategoryDto> createCategory(@RequestBody CategoryDto categoryDto){
         logger.info("Entering request for creating new category record");
@@ -48,6 +53,11 @@ public class CategoryController {
     }
 
     //update
+    /**
+     * @param categoryDto
+     * @return http status for Get data
+     * @apiNote This Api is used to Update New Category in databased with categoryId
+     */
     @PutMapping("/updateCat/{categoryId}")
     public ResponseEntity<CategoryDto> updateCategory(@PathVariable String categoryId,@RequestBody CategoryDto categoryDto){
         logger.info("Entering request for updating category record with category id {}:",categoryId);
@@ -57,6 +67,11 @@ public class CategoryController {
     }
 
     //delete
+    /**
+     * *@param categoryDto
+     * @return http status for Delete data
+     * @apiNote This Api is used to Delete Category in databased
+     */
     @DeleteMapping("/delete/{categoryId}")
     public ResponseEntity<ApiResponse> deleteCategory(@PathVariable String categoryId){
         logger.info("Entering request for deleting category record with category id {}:",categoryId);
@@ -68,6 +83,11 @@ public class CategoryController {
     }
 
     //get all
+    /**
+     * *@param categoryDto
+     * @return http status for Get All data
+     * @apiNote This Api is used to Gell All Category in databased
+     */
     @GetMapping("/getAll")
     public  ResponseEntity<PageableResponse<CategoryDto>> getAll(
             @RequestParam(value = "pageNumber",defaultValue = "0",required = false) int pageNumber,
@@ -80,6 +100,11 @@ public class CategoryController {
     }
 
     //get single
+    /**
+     * *@param categoryDto
+     * @return http status for Get Single data
+     * @apiNote This Api is used to Get Single Category with id in databased
+     */
     @GetMapping("/getSingle/{categoryId}")
     public ResponseEntity<CategoryDto> getSingle(@PathVariable String categoryId){
 
@@ -89,6 +114,11 @@ public class CategoryController {
         return new ResponseEntity<>(categoryDto,HttpStatus.OK);
     }
 
+    /**
+     * *@param categoryDto
+     * @return http status for image data
+     * @apiNote This Api is used to Update Image Category in databased
+     */
     @PostMapping("/image/{id}")
     public  ResponseEntity<ImageResponse> uploadingImage(@RequestParam("categoryImage") MultipartFile coverImage, @PathVariable String categoryId) throws IOException {
 
@@ -106,6 +136,11 @@ public class CategoryController {
     }
 
     //server user img
+    /**
+     * *@param categoryDto
+     * @return http status for Get Image data
+     * @apiNote This Api is used to Update Image Category in databased
+     */
     @GetMapping(value = "/getImage/{id}")
     public void serveUserImage(@PathVariable String categoryId, HttpServletResponse response) throws IOException {
         logger.info("Entering request for getting image category record with category id {} :",categoryId);
