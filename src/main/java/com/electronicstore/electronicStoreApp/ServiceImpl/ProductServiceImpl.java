@@ -51,7 +51,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto update(ProductDto productDto,String productId) {
         logger.info("Initiating dao request for updating product record with product id {}:",productId);
-        Product product = productRepo.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found !!"));
+        Product product = productRepo.findById(productId).orElseThrow(() -> new ResourceNotFoundException("NOT_FOUND"));
          product.setTitle(productDto.getTitle());
          product.setDescription(productDto.getDescription());
          product.setPrice(productDto.getPrice());
@@ -68,7 +68,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void delete(String productId) {
         logger.info("Initiating dao request for deleting product record with product id");
-        Product product = productRepo.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found !!"));
+        Product product = productRepo.findById(productId).orElseThrow(() -> new ResourceNotFoundException("NOT_FOUND"));
         logger.info("Completed dao request for deleting product record with product id");
 
         productRepo.delete(product);
@@ -77,7 +77,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto get(String productId) {
         logger.info("Initiating dao request for getting single product record using id : {}");
-        Product product = productRepo.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found !!"));
+        Product product = productRepo.findById(productId).orElseThrow(() -> new ResourceNotFoundException(" NOT_FOUND"));
         logger.info("Completed dao request for getting single product record using id");
         return mapper.map(product,ProductDto.class);
     }
@@ -119,7 +119,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto createWithCategory(ProductDto productDto, String categoryId) {
-        Category category = categoryRepo.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException(AppConstants.NOT_FOUND));
+        Category category = categoryRepo.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("NOT_FOUND"));
 
         Product product = mapper.map(productDto, Product.class);
         String productId = UUID.randomUUID().toString();
@@ -135,8 +135,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto updateCategory(String productId, String categoryId) {
 
-        Product product = productRepo.findById(productId).orElseThrow(() -> new ResourceNotFoundException(AppConstants.NOT_FOUND));
-        Category category = categoryRepo.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException(AppConstants.NOT_FOUND));
+        Product product = productRepo.findById(productId).orElseThrow(() -> new ResourceNotFoundException("NOT_FOUND"));
+        Category category = categoryRepo.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("NOT_FOUND"));
         product.setCategory(category);
         Product saveProduct = productRepo.save(product);
         return mapper.map(saveProduct, ProductDto.class);
