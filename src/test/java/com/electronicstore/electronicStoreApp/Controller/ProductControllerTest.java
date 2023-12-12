@@ -4,6 +4,7 @@ import com.electronicstore.electronicStoreApp.ServiceI.CategoryService;
 import com.electronicstore.electronicStoreApp.ServiceI.ProductService;
 import com.electronicstore.electronicStoreApp.dto.CategoryDto;
 import com.electronicstore.electronicStoreApp.dto.ProductDto;
+import com.electronicstore.electronicStoreApp.dto.UserDto;
 import com.electronicstore.electronicStoreApp.entites.Category;
 import com.electronicstore.electronicStoreApp.entites.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -77,5 +78,23 @@ public class ProductControllerTest {
             return null;
         }
     }
+
+    @Test
+    public void updateProductTest() throws Exception {
+        String productId="12";
+        ProductDto dto=this.modelMapper.map(product,ProductDto.class);
+        Mockito.when(productService.update(Mockito.any(),Mockito.anyString())).thenReturn(dto);
+
+        this.mockMvc.perform(
+                        MockMvcRequestBuilders.put("/product/updateProd/" + productId)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(convertObjectToJsonString(product))
+                                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").exists());
+
+    }
+
 
 }

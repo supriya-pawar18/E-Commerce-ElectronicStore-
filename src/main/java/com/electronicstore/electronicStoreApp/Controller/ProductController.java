@@ -32,7 +32,7 @@ public class ProductController {
     }
 
     //update
-    @GetMapping("/update/{productId}")
+    @GetMapping("/updateProd/{productId}")
     public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDto,@PathVariable String productId){
         logger.info("Entering request for updating product record with product id {}:",productId);
         ProductDto updatedPro = productService.update(productDto,productId);
