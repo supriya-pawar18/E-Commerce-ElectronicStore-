@@ -25,7 +25,7 @@ public class ProductController {
     /**
      * *@param productDto
      * @return http status for save data
-     * @apiNote This Api is used to create New Category in databased
+     * @apiNote This Api is used to create New Product in databased
      */
     @PostMapping("/create")
     public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto){

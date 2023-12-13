@@ -109,7 +109,7 @@ public class UserController {
     }
 
     /**
-     * @paramuserDto UserDto Object
+     * *@param userDto UserDto Object
      * @return userDto
      * @apiNote This Api is used to get user data with email in database
      */
