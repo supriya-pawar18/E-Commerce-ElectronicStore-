@@ -2,6 +2,7 @@ package com.electronicstore.electronicStoreApp.Controller;
 
 import com.electronicstore.electronicStoreApp.ServiceI.CategoryService;
 import com.electronicstore.electronicStoreApp.dto.CategoryDto;
+import com.electronicstore.electronicStoreApp.dto.PageableResponse;
 import com.electronicstore.electronicStoreApp.dto.UserDto;
 import com.electronicstore.electronicStoreApp.entites.Category;
 import com.electronicstore.electronicStoreApp.entites.User;
@@ -17,6 +18,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -92,6 +97,36 @@ public class CategoryControllerTest {
                 .andExpect(jsonPath("$.title").exists());
     }
 
+    @Test
+    public void getAllCatTest() throws Exception {
+         Category category = Category.builder()
+                .title("Software Test")
+                .description("This is for Testing purpose")
+                .coverImage("test.png")
+                .build();
+
+        Category category1= Category.builder()
+                .title("Sodtware Endineer")
+                .description("This is Software enginner info")
+                .coverImage("soft.png")
+                .build();
+
+
+        List<Category> cat = Arrays.asList(category, category1);
+        List<CategoryDto> categoryDtos = cat.stream().map((abc) -> this.modelMapper.map(cat, CategoryDto.class)).collect(Collectors.toList());
+        PageableResponse pagableResponce = new PageableResponse();
+        Mockito.when(categoryService.getAll(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString(), Mockito.anyString())).thenReturn(pagableResponce);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/category/getAll")
+                        .param("pageNumber", "1")
+                        .param("pageSize", "10")
+                        .param("sortDir", "asc")
+                        .param("sortBy", "name")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+    }
     @Test
     public void deleteCategory() throws Exception {
 
