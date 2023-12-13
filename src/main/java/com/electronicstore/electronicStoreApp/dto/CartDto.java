@@ -14,7 +14,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class CartDto {
 
-
     private String cartId;
 
     private Date createdAt;

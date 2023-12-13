@@ -1,7 +1,9 @@
 package com.electronicstore.electronicStoreApp.Controller;
 
 import com.electronicstore.electronicStoreApp.ServiceI.UserServiceI;
+import com.electronicstore.electronicStoreApp.dto.CategoryDto;
 import com.electronicstore.electronicStoreApp.dto.PageableResponse;
+import com.electronicstore.electronicStoreApp.dto.ProductDto;
 import com.electronicstore.electronicStoreApp.dto.UserDto;
 import com.electronicstore.electronicStoreApp.entites.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -98,6 +100,40 @@ public class UserControllerTest {
     }
 
     @Test
+    public void getUserByIdTest() throws Exception {
+        String id = "abcd";
+
+        UserDto dto = modelMapper.map(user, UserDto.class);
+        Mockito.when(userServiceI.getUserById(Mockito.anyString())).thenReturn(dto);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/user/get/" + id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    public void getUserByEmailTest() throws Exception {
+        String email="suppawar6@gmail.com";
+
+        UserDto dto=this.modelMapper.map(user,UserDto.class);
+
+        Mockito.when(userServiceI.findUserByEmail(email)).thenReturn(dto);
+
+        this.mockMvc.perform(
+                        MockMvcRequestBuilders.get("/user/email/" + email)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(convertObjectToJsonString(user))
+                                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk());
+        //  .andExpect(jsonPath("$.name").exists());
+    }
+
+    @Test
     public void getAllUserTest() throws Exception {
         User user = User.builder()
                 .email("rahul@gmail.com")
@@ -136,15 +172,6 @@ public class UserControllerTest {
 
     @Test
     public void deleteUser() throws Exception {
-
-//        User user = User.builder()
-//                .email("Priya@gmail.com")
-//                .name("Priya")
-//                .about("Software")
-//                .gender("Female")
-//                .password("12333")
-//                .imgname("Pri.png")
-//                .build();
 
         String id = "123";
 

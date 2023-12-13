@@ -38,14 +38,14 @@ public class CartServiceImpl implements CartService {
     @Override
     public CartDto addItemToCart(String id, AddItemToCartRequest request) {
 
-        int quantity = request.getQuantity();
-        String productId= String.valueOf(request.getProductId());
-
-        Product product = productRepo.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found"));
-
-        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
-
-        Cart cart=null;
+//        int quantity = request.getQuantity();
+//        String productId= String.valueOf(request.getProductId());
+//
+//        Product product = productRepo.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+//
+//        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+//
+//        Cart cart=null;
 //        try{
 //             cart= cartRepository.findByUser(user).get();
 //        }catch( NoSuchFieldException e){
@@ -54,24 +54,24 @@ public class CartServiceImpl implements CartService {
 //        }
 
         //perform cart operation
-        List<CartItem> items=cart.getItems();
-        items.stream().map(item ->{
-
-            if(item.getProduct().getProductId().equals(productId)){
-
-            }
-            return item;
-        }).collect(Collectors.toList());
-
-        //create item
-        CartItem cartItem=CartItem.builder()
-                .quantity(quantity)
-                .totalPrice(quantity * product.getPrice())
-                .cart(cart)
-                .product(product)
-                .build();
-
-        cart.getItems().add(cartItem);
+//        List<CartItem> items=cart.getItems();
+//        items.stream().map(item ->{
+//
+//            if(item.getProduct().getProductId().equals(productId)){
+//
+//            }
+//            return item;
+//        }).collect(Collectors.toList());
+//
+//        //create item
+//        CartItem cartItem=CartItem.builder()
+//                .quantity(quantity)
+//                .totalPrice(quantity * product.getPrice())
+//                .cart(cart)
+//                .product(product)
+//                .build();
+//
+//        cart.getItems().add(cartItem);
 
         return null;
     }
@@ -79,8 +79,8 @@ public class CartServiceImpl implements CartService {
     @Override
     public void removeItemFromCart(String id, int cartItem) {
 
-          CartItem cart1=cartIemRepo.findById(cartItem).orElseThrow(()->new ResourceNotFoundException("Item remove fom cart !!"));
-          cartIemRepo.delete(cart1);
+//          CartItem cart1=cartIemRepo.findById(cartItem).orElseThrow(()->new ResourceNotFoundException("Item remove fom cart !!"));
+//          cartIemRepo.delete(cart1);
     }
 
     @Override

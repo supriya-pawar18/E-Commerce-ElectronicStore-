@@ -140,6 +140,21 @@ public class ProductControllerTest {
     }
 
     @Test
+    public void getProductTest() throws Exception {
+        String productId = "abcd";
+
+        ProductDto dto = modelMapper.map(product, ProductDto.class);
+        Mockito.when(productService.get(Mockito.anyString())).thenReturn(dto);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/product/" + productId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+
+    }
+    @Test
     public void deleteProduct() throws Exception {
 
         String productId="abc";

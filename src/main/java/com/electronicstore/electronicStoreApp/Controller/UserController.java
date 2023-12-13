@@ -2,10 +2,7 @@ package com.electronicstore.electronicStoreApp.Controller;
 
 import com.electronicstore.electronicStoreApp.ServiceI.FileService;
 import com.electronicstore.electronicStoreApp.ServiceI.UserServiceI;
-import com.electronicstore.electronicStoreApp.dto.ApiResponse;
-import com.electronicstore.electronicStoreApp.dto.ImageResponse;
-import com.electronicstore.electronicStoreApp.dto.PageableResponse;
-import com.electronicstore.electronicStoreApp.dto.UserDto;
+import com.electronicstore.electronicStoreApp.dto.*;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -72,12 +69,12 @@ public class UserController {
      * * @param userDto UserDto Object
      * @apiNote To get single user data from database using id
      */
-     @GetMapping("/getById/{id}")
+     @GetMapping("/get/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable UserDto id) {
         logger.info("Entering request for getting user record with user id {}:",id);
-        UserDto userById = this.userServiceI.getUserById(id.getId());
+         UserDto getUser = userServiceI.getUserById(String.valueOf(id));
         logger.info("completed request for getting user record with user id {}:" ,id);
-        return new ResponseEntity<>(userById, HttpStatus.OK);
+        return new ResponseEntity<>(getUser, HttpStatus.OK);
     }
 
     /**
@@ -111,7 +108,7 @@ public class UserController {
     /**
      * *@param userDto UserDto Object
      * @return userDto
-     * @apiNote This Api is used to get user data with email in database
+     * @apiNote This Api is used to get user data with email from database
      */
     @GetMapping("/email/{email}")
     public UserDto getUserByEmail(@PathVariable String email) {

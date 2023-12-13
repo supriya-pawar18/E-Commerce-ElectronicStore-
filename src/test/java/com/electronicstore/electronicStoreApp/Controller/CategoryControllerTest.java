@@ -126,6 +126,21 @@ public class CategoryControllerTest {
                 .andExpect(status().isOk());
 
     }
+
+    @Test
+    public void getByCategoryId() throws Exception {
+        String categoryId = "abcd";
+        CategoryDto dto = modelMapper.map(category, CategoryDto.class);
+        Mockito.when(categoryService.get(Mockito.anyString())).thenReturn(dto);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/category/getSingle/" + categoryId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+
+    }
     @Test
     public void deleteCategory() throws Exception {
 

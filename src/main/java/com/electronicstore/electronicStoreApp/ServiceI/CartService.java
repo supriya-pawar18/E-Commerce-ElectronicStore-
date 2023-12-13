@@ -2,7 +2,9 @@ package com.electronicstore.electronicStoreApp.ServiceI;
 
 import com.electronicstore.electronicStoreApp.dto.AddItemToCartRequest;
 import com.electronicstore.electronicStoreApp.dto.CartDto;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface CartService {
 
     //cart is available add item

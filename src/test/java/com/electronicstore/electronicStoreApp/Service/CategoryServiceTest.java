@@ -116,4 +116,14 @@ public class CategoryServiceTest {
         Sort sort = Sort.by("name").ascending();
 
     }
+
+    @Test
+    public void getCategoryTest(){
+        String categoryId="abcdesx";
+        Mockito.when(categoryRepo.findById(categoryId)).thenReturn(Optional.of(category));
+
+        CategoryDto categoryDto= categoryService.get(categoryId);
+        Assertions.assertNotNull(categoryDto);
+        Assertions.assertEquals(category.getTitle(),categoryDto.getTitle(),"Title not matched");
+    }
 }
