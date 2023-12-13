@@ -3,6 +3,7 @@ package com.electronicstore.electronicStoreApp.Controller;
 import com.electronicstore.electronicStoreApp.ServiceI.CategoryService;
 import com.electronicstore.electronicStoreApp.ServiceI.ProductService;
 import com.electronicstore.electronicStoreApp.dto.CategoryDto;
+import com.electronicstore.electronicStoreApp.dto.PageableResponse;
 import com.electronicstore.electronicStoreApp.dto.ProductDto;
 import com.electronicstore.electronicStoreApp.dto.UserDto;
 import com.electronicstore.electronicStoreApp.entites.Category;
@@ -19,6 +20,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -96,6 +101,43 @@ public class ProductControllerTest {
 
     }
 
+    @Test
+    public void getAllCatTest() throws Exception {
+        Product product = Product.builder()
+                .title("IPhone")
+                .description("The details related to Iphone")
+                .price(90000)
+                .discountedPrice(80000)
+                .quantity(30)
+                .live(false)
+                .stock(false)
+                .build();
+
+         Product product1 = Product.builder()
+                .title("Samsumg")
+                .description("The details related to Samsumg")
+                .price(50000)
+                .discountedPrice(40000)
+                .quantity(40)
+                .live(false)
+                .stock(false)
+                .build();
+
+        List<Product> prod = Arrays.asList(product, product1);
+        List<ProductDto> categoryDtos = prod.stream().map((abc) -> this.modelMapper.map(prod, ProductDto.class)).collect(Collectors.toList());
+        PageableResponse pagableResponce = new PageableResponse();
+        Mockito.when(productService.getAll(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString(), Mockito.anyString())).thenReturn(pagableResponce);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/product/getAll")
+                        .param("pageNumber", "1")
+                        .param("pageSize", "10")
+                        .param("sortDir", "asc")
+                        .param("sortBy", "name")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+    }
 
     @Test
     public void deleteProduct() throws Exception {

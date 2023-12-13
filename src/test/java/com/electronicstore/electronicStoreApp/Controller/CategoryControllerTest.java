@@ -96,7 +96,6 @@ public class CategoryControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").exists());
     }
-
     @Test
     public void getAllCatTest() throws Exception {
          Category category = Category.builder()
