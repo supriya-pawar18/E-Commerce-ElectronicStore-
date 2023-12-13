@@ -110,9 +110,7 @@ public class CategoryServiceTest {
         List<Category> CatList = Arrays.asList(category, category1);
 
         Page<Category> page = new PageImpl<>(CatList);
-
         Mockito.when(categoryRepo.findAll((Pageable) Mockito.any())).thenReturn(page);
-
         Sort sort = Sort.by("name").ascending();
 
     }

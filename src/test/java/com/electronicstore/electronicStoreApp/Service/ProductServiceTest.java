@@ -125,11 +125,39 @@ public class ProductServiceTest {
                 .build();
 
         List<Product> productList = Arrays.asList(product1, product2);
-
         Page<Product> page = new PageImpl<>(productList);
 
         Mockito.when(productRepo.findAll((Pageable) Mockito.any())).thenReturn(page);
+        Sort sort = Sort.by("title").ascending();
+    }
 
+    @Test
+    public void getAllLiveTest(){
+
+        Product product1 = Product.builder()
+                .title("Samsumg")
+                .description("The details related to info")
+                .price(50000)
+                .discountedPrice(40000)
+                .quantity(40)
+                .live(false)
+                .stock(false)
+                .build();
+
+        Product product2 = Product.builder()
+                .title("IPhone")
+                .description("The details related to info")
+                .price(100000)
+                .discountedPrice(90000)
+                .quantity(50)
+                .live(false)
+                .stock(false)
+                .build();
+
+        List<Product> productList = Arrays.asList(product1, product2);
+        Page<Product> page = new PageImpl<>(productList);
+
+        Mockito.when(productRepo.findByLiveTrue((Pageable) Mockito.any())).thenReturn(page);
         Sort sort = Sort.by("title").ascending();
 
     }
