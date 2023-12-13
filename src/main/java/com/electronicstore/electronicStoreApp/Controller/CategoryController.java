@@ -18,8 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static com.electronicstore.electronicStoreApp.helper.AppContants.CATEGORY_DELETED;
-import static com.electronicstore.electronicStoreApp.helper.AppContants.USER_DELETED;
 
 @RestController
 @RequestMapping("/category")
@@ -77,7 +75,7 @@ public class CategoryController {
         logger.info("Entering request for deleting category record with category id {}:",categoryId);
 
         categoryService.delete(categoryId);
-        ApiResponse response = ApiResponse.builder().message(CATEGORY_DELETED).status(HttpStatus.OK).build();
+        ApiResponse response = ApiResponse.builder().message("CATEGORY_DELETED").status(HttpStatus.OK).build();
         logger.info("Completed request for deleting category record with category id {}:",categoryId);
         return new ResponseEntity<>(response,HttpStatus.OK);
     }

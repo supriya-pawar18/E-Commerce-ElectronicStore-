@@ -22,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static com.electronicstore.electronicStoreApp.helper.AppContants.CATEGORY_DELETED;
 import static com.electronicstore.electronicStoreApp.helper.AppContants.USER_DELETED;
 
 @RestController
@@ -53,7 +52,7 @@ public class UserController {
 
     /**
      * @return http status for getting data
-     * @paramuserDto used to pass to create new create
+     * @paramuserDto used to get to data
      * @apiNote To get all user data from database
      */
     @GetMapping("/getAll")
@@ -99,13 +98,14 @@ public class UserController {
      * @return userDto
      * @apiNote This Api is used to delete user data with id in  database
      */
-    @GetMapping("/delete/{id}")
-    public void deleteUser(@PathVariable String id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable String id) {
             logger.info("Entering request for getting user record with user id {}:",id);
             this.userServiceI.deleteUser(id);
-            ApiResponse response = ApiResponse.builder().message(USER_DELETED).status(HttpStatus.OK).build();
+            ApiResponse response = ApiResponse.builder().message("User Deleted Successfully").status(HttpStatus.OK).build();
             logger.info("completed request for deleting user record with user id {}:",id);
-           new ResponseEntity<>("delete successfully", HttpStatus.OK);
+        //   new ResponseEntity<>("delete successfully", HttpStatus.OK);
+        return ResponseEntity.ok("Delete User Successfully");
     }
 
     /**

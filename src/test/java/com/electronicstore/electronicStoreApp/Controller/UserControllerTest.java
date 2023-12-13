@@ -19,11 +19,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import javax.management.relation.Role;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -98,29 +99,64 @@ public class UserControllerTest {
 
     @Test
     public void getAllUserTest() throws Exception {
-        UserDto userDto= UserDto.builder().name("vivek").about("This is update data").gender("Male").imgname("abc.png").build();
-        UserDto userDto1= UserDto.builder().name("Nilu").about("This is update data").gender("Female").imgname("gef.png").build();
-        UserDto userDto2= UserDto.builder().name("Ashu").about("This is update data").gender("Female").imgname("avc.png").build();
-        UserDto userDto3= UserDto.builder().name("Siya").about("This is update data").gender("Female").imgname("si.png").build();
+        User user = User.builder()
+                .email("rahul@gmail.com")
+                .name("Rahul")
+                .about("Mechanical")
+                .gender("Male")
+                .password("12333")
+                .imgname("rahul.png")
+                .build();
 
-        PageableResponse<UserDto> pageableResponse=new PageableResponse<>();
-        pageableResponse.setContent(Arrays.asList(userDto,userDto1,userDto2,userDto3));
+        User user1 = User.builder()
+                .email("pawan@gmail.com")
+                .name("Pawan")
+                .about("Mechanical")
+                .gender("Male")
+                .password("12333")
+                .imgname("pawan.png")
+                .build();
 
-        pageableResponse.setLastPage(false);
-        pageableResponse.setPageSize(10);
-        pageableResponse.setPageNumber(20);
-        pageableResponse.setTotalElements(100);
 
-        Mockito.when(userServiceI.getAllUsers(Mockito.anyInt(),Mockito.anyInt(),Mockito.anyString(),Mockito.anyString())).thenReturn(pageableResponse);
+        List<User> users = Arrays.asList(user, user1);
+        List<UserDto> userDtos = users.stream().map(user2 -> this.modelMapper.map(users, UserDto.class)).collect(Collectors.toList());
+        PageableResponse pagableResponce = new PageableResponse();
+        Mockito.when(userServiceI.getAllUsers(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString(), Mockito.anyString())).thenReturn(pagableResponce);
 
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/user/getAll/")
-                      .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                )
-                .andDo(print())
+        mockMvc.perform(MockMvcRequestBuilders.get("/user/getAll/")
+                        .param("pageNumber", "1")
+                        .param("pageSize", "10")
+                        .param("sortDir", "asc")
+                        .param("sortBy", "name")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+
     }
 
+    @Test
+    public void deleteUser() throws Exception {
 
+        User user = User.builder()
+                .email("Priya@gmail.com")
+                .name("Priya")
+                .about("Software")
+                .gender("Female")
+                .password("12333")
+                .imgname("Pri.png")
+                .build();
+
+        String id = "123";
+
+        Mockito.doNothing().when(userServiceI).deleteUser(id);
+
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/user/delete/" + id)
+                        .contentType(MediaType.TEXT_PLAIN_VALUE +";charset=UTF-8"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.TEXT_PLAIN_VALUE + ";charset=UTF-8"))
+                .andExpect(content().string("Delete User Successfully"));
+    }
 
 }
