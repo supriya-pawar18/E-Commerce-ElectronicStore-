@@ -119,11 +119,11 @@ public class UserControllerTest {
 
 
         List<User> users = Arrays.asList(user, user1);
-        List<UserDto> userDtos = users.stream().map(user2 -> this.modelMapper.map(users, UserDto.class)).collect(Collectors.toList());
+        List<UserDto> userDtos = users.stream().map((abc) -> this.modelMapper.map(users, UserDto.class)).collect(Collectors.toList());
         PageableResponse pagableResponce = new PageableResponse();
         Mockito.when(userServiceI.getAllUsers(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString(), Mockito.anyString())).thenReturn(pagableResponce);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/user/getAll/")
+        mockMvc.perform(MockMvcRequestBuilders.get("/user/getAll")
                         .param("pageNumber", "1")
                         .param("pageSize", "10")
                         .param("sortDir", "asc")
@@ -137,14 +137,14 @@ public class UserControllerTest {
     @Test
     public void deleteUser() throws Exception {
 
-        User user = User.builder()
-                .email("Priya@gmail.com")
-                .name("Priya")
-                .about("Software")
-                .gender("Female")
-                .password("12333")
-                .imgname("Pri.png")
-                .build();
+//        User user = User.builder()
+//                .email("Priya@gmail.com")
+//                .name("Priya")
+//                .about("Software")
+//                .gender("Female")
+//                .password("12333")
+//                .imgname("Pri.png")
+//                .build();
 
         String id = "123";
 

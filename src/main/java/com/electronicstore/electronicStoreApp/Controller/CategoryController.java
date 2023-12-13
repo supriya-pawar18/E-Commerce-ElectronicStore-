@@ -70,12 +70,12 @@ public class CategoryController {
      * @return http status for Delete data
      * @apiNote This Api is used to Delete Category in databased
      */
-    @DeleteMapping("/delete/{categoryId}")
+    @DeleteMapping("/{categoryId}")
     public ResponseEntity<ApiResponse> deleteCategory(@PathVariable String categoryId){
         logger.info("Entering request for deleting category record with category id {}:",categoryId);
 
         categoryService.delete(categoryId);
-        ApiResponse response = ApiResponse.builder().message("CATEGORY_DELETED").status(HttpStatus.OK).build();
+        ApiResponse response = ApiResponse.builder().message("Category Deleted Successfully").status(HttpStatus.OK).build();
         logger.info("Completed request for deleting category record with category id {}:",categoryId);
         return new ResponseEntity<>(response,HttpStatus.OK);
     }

@@ -97,4 +97,14 @@ public class ProductControllerTest {
     }
 
 
+    @Test
+    public void deleteProduct() throws Exception {
+
+        String productId="abc";
+
+        Mockito.doNothing().when(productService).delete(productId);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/product/" + productId))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
 }

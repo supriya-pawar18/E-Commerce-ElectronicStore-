@@ -4,6 +4,7 @@ import com.electronicstore.electronicStoreApp.ServiceI.CategoryService;
 import com.electronicstore.electronicStoreApp.dto.CategoryDto;
 import com.electronicstore.electronicStoreApp.dto.UserDto;
 import com.electronicstore.electronicStoreApp.entites.Category;
+import com.electronicstore.electronicStoreApp.entites.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,8 +19,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -71,6 +72,8 @@ public class CategoryControllerTest {
             e.printStackTrace();
             return null;
         }
+
+
     }
 
     @Test
@@ -87,6 +90,17 @@ public class CategoryControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").exists());
+    }
+
+    @Test
+    public void deleteCategory() throws Exception {
+
+        String categorytId="abc";
+
+        Mockito.doNothing().when(categoryService).delete(categorytId);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/category/" + categorytId))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
 }
