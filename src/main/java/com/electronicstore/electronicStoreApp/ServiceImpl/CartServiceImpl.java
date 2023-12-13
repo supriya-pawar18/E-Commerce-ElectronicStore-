@@ -9,6 +9,7 @@ import com.electronicstore.electronicStoreApp.entites.CartItem;
 import com.electronicstore.electronicStoreApp.entites.Product;
 import com.electronicstore.electronicStoreApp.entites.User;
 import com.electronicstore.electronicStoreApp.exception.ResourceNotFoundException;
+import com.electronicstore.electronicStoreApp.repository.CartIemRepo;
 import com.electronicstore.electronicStoreApp.repository.CartRepository;
 import com.electronicstore.electronicStoreApp.repository.ProductRepo;
 import com.electronicstore.electronicStoreApp.repository.UserRepository;
@@ -30,6 +31,9 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private CartRepository cartRepository;
+
+    @Autowired
+    private CartIemRepo cartIemRepo;
 
     @Override
     public CartDto addItemToCart(String id, AddItemToCartRequest request) {
@@ -75,6 +79,8 @@ public class CartServiceImpl implements CartService {
     @Override
     public void removeItemFromCart(String id, int cartItem) {
 
+          CartItem cart1=cartIemRepo.findById(cartItem).orElseThrow(()->new ResourceNotFoundException("Item remove fom cart !!"));
+          cartIemRepo.delete(cart1);
     }
 
     @Override
