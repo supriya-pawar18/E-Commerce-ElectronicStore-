@@ -52,7 +52,8 @@ public class CategoryController {
 
     //update
     /**
-     * @param categoryDto
+     * @param categoryDto CategoryDto
+     * @param categoryId CategoryId
      * @return http status for Get data
      * @apiNote This Api is used to Update New Category in databased with categoryId
      */
@@ -100,6 +101,7 @@ public class CategoryController {
     //get single
     /**
      * *@param categoryDto
+     * @param categoryId CategoryId
      * @return http status for Get Single data
      * @apiNote This Api is used to Get Single Category with id in databased
      */
@@ -114,6 +116,7 @@ public class CategoryController {
 
     /**
      * *@param categoryDto
+     * @param categoryId CategoryId
      * @return http status for image data
      * @apiNote This Api is used to Update Image Category in databased
      */

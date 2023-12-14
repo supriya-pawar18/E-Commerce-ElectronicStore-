@@ -38,8 +38,9 @@ public class ProductController {
     //update
     /**
      * *@param productDto
+     * @param productId ProductId
      * @return http status for Update Product data
-     * @apiNote This Api is used to Update Product in databased
+     * @apiNote This Api is used to Update Product data in databased
      */
     @PutMapping("/updateProd/{productId}")
     public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDto,@PathVariable String productId){
@@ -52,6 +53,7 @@ public class ProductController {
     //delete
     /**
      * *@param productDto
+     * @param productId ProductId
      * @return http status for Delete Product data
      * @apiNote This Api is used to Delete Product with id from databased
      */

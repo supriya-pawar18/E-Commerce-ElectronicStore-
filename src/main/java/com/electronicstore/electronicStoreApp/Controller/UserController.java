@@ -67,6 +67,7 @@ public class UserController {
     /**
      * @return http status for get single data from database
      * * @param userDto UserDto Object
+     * @param id id
      * @apiNote To get single user data from database using id
      */
      @GetMapping("/get/{id}")
@@ -78,7 +79,7 @@ public class UserController {
     }
 
     /**
-     * @param userDto UserDto Object
+     * @param userDto UserDto
      * @return userDto
      * @apiNote This Api is used to update user data with id in  database
      */
@@ -106,7 +107,8 @@ public class UserController {
     }
 
     /**
-     * *@param userDto UserDto Object
+     * *@param userDto UserDto
+     * @param email email
      * @return userDto
      * @apiNote This Api is used to get user data with email from database
      */

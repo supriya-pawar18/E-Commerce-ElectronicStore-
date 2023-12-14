@@ -2,19 +2,18 @@ package com.electronicstore.electronicStoreApp.entites;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.modelmapper.internal.bytebuddy.dynamic.loading.InjectionClassLoader;
 
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-@Getter
+@NoArgsConstructor
 @Setter
+@Getter
+@Builder
 @Entity
 public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int orderItem;
+    private int orederItemId;
 
     private int quantity;
 
@@ -22,6 +21,5 @@ public class OrderItem {
 
     @OneToOne
     private Product product;
-    @ManyToOne
-    private Order order;
+
 }

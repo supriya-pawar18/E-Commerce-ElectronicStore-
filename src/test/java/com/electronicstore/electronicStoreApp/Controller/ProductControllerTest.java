@@ -140,6 +140,35 @@ public class ProductControllerTest {
     }
 
     @Test
+    public void getAllLiveTest() throws Exception {
+        Product product = Product.builder()
+                .title("IPhone")
+                .description("The details related to Iphone")
+                .price(90000)
+                .discountedPrice(80000)
+                .quantity(30)
+                .live(false)
+                .stock(false)
+                .build();
+
+
+        List<Product> prod = Arrays.asList(product);
+        List<ProductDto> categoryDtos = prod.stream().map((abc) -> this.modelMapper.map(prod, ProductDto.class)).collect(Collectors.toList());
+        PageableResponse pagableResponce = new PageableResponse();
+        Mockito.when(productService.getAllLive(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyString(), Mockito.anyString())).thenReturn(pagableResponce);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/product/live")
+                        .param("pageNumber", "1")
+                        .param("pageSize", "10")
+                        .param("sortDir", "asc")
+                        .param("sortBy", "name")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
     public void getProductTest() throws Exception {
         String productId = "abcd";
 
