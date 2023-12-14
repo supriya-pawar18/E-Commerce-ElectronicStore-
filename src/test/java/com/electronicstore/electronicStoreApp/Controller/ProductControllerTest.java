@@ -102,7 +102,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void getAllCatTest() throws Exception {
+    public void getAllProdTest() throws Exception {
         Product product = Product.builder()
                 .title("IPhone")
                 .description("The details related to Iphone")

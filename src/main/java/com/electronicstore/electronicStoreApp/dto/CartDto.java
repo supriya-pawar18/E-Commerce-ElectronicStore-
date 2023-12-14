@@ -15,8 +15,6 @@ import java.util.Date;
 public class CartDto {
 
     private String cartId;
-
     private Date createdAt;
-
     private User user;
 }

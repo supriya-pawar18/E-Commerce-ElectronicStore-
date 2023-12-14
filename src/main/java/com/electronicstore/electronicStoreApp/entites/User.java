@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Length;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Setter
 @Getter
@@ -26,6 +29,9 @@ public class User {
     private String gender;
 
     private String about;
+
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    private List<Order> orders=new ArrayList<>();
 
 
 }
