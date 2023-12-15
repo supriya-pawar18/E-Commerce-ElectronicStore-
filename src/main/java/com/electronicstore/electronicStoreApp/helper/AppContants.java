@@ -10,6 +10,7 @@ public class AppContants {
 
     public static final String PRODUCT_DELETED="Resource not found with productId";
 
+    public final  static  String  INVALID_QUANTITY  ="Requested quantity is not valid";
 
 
 
