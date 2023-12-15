@@ -6,6 +6,9 @@ public class AppContants {
 
     public static final String USER_DELETED="Resource not found with id";
 
+    public static final String USER_NOT_FOUND="Resource not found with id";
+
+
     public static final String CATEGORY_DELETED="Resource not found with categoryId";
 
     public static final String CATEGORY_NOT_FOUND="Categroy not found with categoryId";
