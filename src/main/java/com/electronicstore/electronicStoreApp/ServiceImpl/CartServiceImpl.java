@@ -105,8 +105,8 @@ public class CartServiceImpl implements CartService {
     @Override
     public void removeItemFromCart(String id, int cartItem) {
 
-//          CartItem cart1=cartIemRepo.findById(cartItem).orElseThrow(()->new ResourceNotFoundException("Item Not found in cart !!"));
-//          cartIemRepo.delete(cart1);
+          CartItem cart1=cartIemRepo.findById(cartItem).orElseThrow(()->new ResourceNotFoundException(AppContants.ITEM_NOT_FOUND));
+          cartIemRepo.delete(cart1);
     }
 
     @Override

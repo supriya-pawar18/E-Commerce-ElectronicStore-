@@ -5,6 +5,7 @@ import com.electronicstore.electronicStoreApp.dto.CategoryDto;
 import com.electronicstore.electronicStoreApp.dto.PageableResponse;
 import com.electronicstore.electronicStoreApp.entites.Category;
 import com.electronicstore.electronicStoreApp.exception.ResourceNotFoundException;
+import com.electronicstore.electronicStoreApp.helper.AppContants;
 import com.electronicstore.electronicStoreApp.helper.Helper;
 import com.electronicstore.electronicStoreApp.repository.CategoryRepo;
 import org.modelmapper.ModelMapper;
@@ -49,7 +50,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         logger.info("Initiating dao request for updating category record with category id {}:",categoryId);
 
-        Category category = categoryRepo.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found !!"));
+        Category category = categoryRepo.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException(AppContants.CATEGORY_NOT_FOUND));
         category.setTitle(categoryDto.getTitle());
         category.setDescription(categoryDto.getDescription());
         category.setCoverImage(categoryDto.getCoverImage());
@@ -62,7 +63,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void delete(String categoryId) {
         logger.info("Initiating dao request for deleting category record with category id {}:",categoryId);
-        Category category = categoryRepo.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found !!"));
+        Category category = categoryRepo.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException(AppContants.CATEGORY_DELETED));
         logger.info("Completed dao request for deleting category record with category id {}:",categoryId);
         categoryRepo.delete(category);
     }
@@ -82,7 +83,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto get(String categoryId) {
         logger.info("Initiating dao request for getting single category record using categoryId{} :",categoryId);
-        Category category = categoryRepo.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category not found !!"));
+        Category category = categoryRepo.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException(AppContants.CATEGORY_NOT_FOUND));
         logger.info("Completed dao request for getting single category record using categoryId {}:",categoryId);
         return modelMapper.map(category,CategoryDto.class);
     }
