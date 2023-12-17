@@ -34,7 +34,15 @@ public class CartController {
                 .build();
         return new ResponseEntity<>(apiResponse,HttpStatus.OK);
     }
+    @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse> clearCart(@PathVariable String id){
-        return null;
+
+        cartService.clearCart(id);
+        ApiResponse apiResponse = ApiResponse.builder()
+                .message("Cart is not blank !!")
+                .success(true)
+                .status(HttpStatus.OK)
+                .build();
+        return new ResponseEntity<>(apiResponse,HttpStatus.OK);
     }
     }
