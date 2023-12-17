@@ -53,6 +53,7 @@ public class UserServiceImplTest {
 
     @Test
     public void createUserTest() {
+
         Mockito.when(userRepository.save(Mockito.any())).thenReturn(user);
         UserDto user1 = userServiceI.createUser(modelMapper.map(user, UserDto.class));
         System.out.println(user1.getName());
@@ -90,7 +91,6 @@ public class UserServiceImplTest {
         String id = "abcdefghijklm";
 
         Mockito.when(userRepository.findById(id)).thenReturn(Optional.of(user));
-
         userServiceI.deleteUser(id);
 
         Mockito.verify(userRepository, Mockito.times(1)).delete(user);
@@ -131,7 +131,6 @@ public class UserServiceImplTest {
     public void getUserByIdTest(){
         String id="abcdesx";
         Mockito.when(userRepository.findById(id)).thenReturn(Optional.of(user));
-
         UserDto userDto= userServiceI.getUserById(id);
 
         Assertions.assertNotNull(userDto);

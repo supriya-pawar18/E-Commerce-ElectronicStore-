@@ -1,7 +1,6 @@
 package com.electronicstore.electronicStoreApp.ServiceImpl;
 
 import com.electronicstore.electronicStoreApp.ServiceI.CartService;
-import com.electronicstore.electronicStoreApp.ServiceI.CategoryService;
 import com.electronicstore.electronicStoreApp.dto.AddItemToCartRequest;
 import com.electronicstore.electronicStoreApp.dto.CartDto;
 import com.electronicstore.electronicStoreApp.entites.Cart;
@@ -23,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
@@ -52,9 +52,9 @@ public class CartServiceImpl implements CartService {
         if (quantity <= 0) {
             throw new BadApiRequestException(AppContants.INVALID_QUANTITY);
         }
-
+        //fetch product
         Product product = productRepo.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found"));
-
+         //fetch user
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         Cart cart=null;
@@ -67,13 +67,14 @@ public class CartServiceImpl implements CartService {
         }
 
 
-        AtomicReference<Boolean> updated = new AtomicReference<>(false);
+       AtomicReference<Boolean> updated = new AtomicReference<>(false);
 
         // perform cart operation
-        List<CartItem> items=cart.getItems();
+           List<CartItem> items=cart.getItems();
          List<CartItem> updatedITems =items.stream().map(item ->{
 
             if(item.getProduct().getProductId().equals(productId)){
+                //item alreadypresent
                  item.setQuantity(quantity + item.getQuantity()); // change
                 item.setTotalPrice(quantity * product.getPrice() + item.getTotalPrice());
                 updated.set(true);
@@ -84,13 +85,13 @@ public class CartServiceImpl implements CartService {
               cart.setItems(updatedITems);
 
         //create item
-         if (!updated.get()) {
+        if(!updated.get()) {
             CartItem cartItem = CartItem.builder()
-                         .quantity(quantity)
-                         .totalPrice(quantity * product.getPrice())
-                         .cart(cart)
-                         .product(product)
-                         .build();
+                    .quantity(quantity)
+                    .totalPrice(quantity * product.getPrice())
+                    .cart(cart)
+                    .product(product)
+                    .build();
 
             cart.getItems().add(cartItem);
         }
@@ -117,5 +118,15 @@ public class CartServiceImpl implements CartService {
 
         cart.getItems().clear();
         cartRepository.save(cart);
+    }
+
+    @Override
+    public CartDto getCartByUser(String id) {
+
+
+        User user = userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException(AppContants.USER_NOT_FOUND));
+        Cart cart = cartRepository.findByUser(user).orElseThrow(()-> new ResourceNotFoundException(AppContants.ITEM_NOT_FOUND));
+
+        return modelMapper.map(cart,CartDto.class);
     }
 }

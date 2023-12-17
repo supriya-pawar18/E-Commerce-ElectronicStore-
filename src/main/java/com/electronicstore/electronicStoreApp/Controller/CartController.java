@@ -2,6 +2,7 @@ package com.electronicstore.electronicStoreApp.Controller;
 
 import com.electronicstore.electronicStoreApp.ServiceI.CartService;
 import com.electronicstore.electronicStoreApp.dto.AddItemToCartRequest;
+import com.electronicstore.electronicStoreApp.dto.ApiResponse;
 import com.electronicstore.electronicStoreApp.dto.CartDto;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,4 +24,7 @@ public class CartController {
         return new ResponseEntity<>(cartDto, HttpStatus.OK);
     }
 
+    public ResponseEntity<ApiResponse> clearCart(@PathVariable String id){
+        return null;
+    }
     }

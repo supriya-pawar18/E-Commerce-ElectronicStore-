@@ -15,4 +15,6 @@ public interface CartService {
 
     //remove all items
     void clearCart(String id);
+
+    CartDto getCartByUser(String id);
 }

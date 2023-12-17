@@ -15,6 +15,7 @@ public class CartItem {
     private int cartItemId;
 
     @OneToOne
+    @JoinColumn(name = "product_id")
     private Product product;
 
     private int quantity;

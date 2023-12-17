@@ -49,7 +49,7 @@ public class UserController {
 
     /**
      * @return http status for getting data
-     * @paramuserDto used to get to data
+     * *@param userDto used to get to data
      * @apiNote To get all user data from database
      */
     @GetMapping("/getAll")
@@ -66,7 +66,7 @@ public class UserController {
 
     /**
      * @return http status for get single data from database
-     * * @param userDto UserDto Object
+     * * @param userDto UserDto
      * @param id id
      * @apiNote To get single user data from database using id
      */
@@ -80,6 +80,7 @@ public class UserController {
 
     /**
      * @param userDto UserDto
+     * @param id
      * @return userDto
      * @apiNote This Api is used to update user data with id in  database
      */
