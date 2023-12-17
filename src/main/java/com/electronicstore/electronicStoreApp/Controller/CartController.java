@@ -18,12 +18,22 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    @PostMapping("/")
+    @PostMapping("/{id}")
     public ResponseEntity<CartDto> addItemToCart(@PathVariable String id,@RequestBody AddItemToCartRequest request) {
         CartDto cartDto = cartService.addItemToCart(id, request);
         return new ResponseEntity<>(cartDto, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}/items/{itemId}")
+    public ResponseEntity<ApiResponse> removeItemFromCart( @PathVariable String id,@PathVariable int itemId){
+        cartService.removeItemFromCart(id,itemId);
+        ApiResponse apiResponse = ApiResponse.builder()
+                .message("Item is removed")
+                .success(true)
+                .status(HttpStatus.OK)
+                .build();
+        return new ResponseEntity<>(apiResponse,HttpStatus.OK);
+    }
     public ResponseEntity<ApiResponse> clearCart(@PathVariable String id){
         return null;
     }
