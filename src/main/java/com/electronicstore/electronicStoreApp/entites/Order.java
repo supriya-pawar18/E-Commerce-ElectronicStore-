@@ -22,7 +22,7 @@ public class Order {
       private  String orderId;
       //pending,Delivered
       private String orderStatus;
-      //Not Paid,Paid
+      //NotPaid,Paid
       private String paymentStatus;
 
       private int orderAmount;
@@ -39,6 +39,7 @@ public class Order {
 
       //user
        @ManyToOne(fetch = FetchType.EAGER)
+       @JoinColumn(name = "user_id")
        private User user;
 
        @OneToMany(mappedBy = "order",fetch = FetchType.EAGER)
