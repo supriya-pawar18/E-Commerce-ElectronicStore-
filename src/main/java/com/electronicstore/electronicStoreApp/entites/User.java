@@ -30,8 +30,8 @@ public class User {
 
     private String about;
 
-//    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
-//    private List<Order> orders=new ArrayList<>();
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    private List<Order> orders=new ArrayList<>();
 
 
 }
