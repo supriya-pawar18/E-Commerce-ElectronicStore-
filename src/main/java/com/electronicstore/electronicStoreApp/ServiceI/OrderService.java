@@ -20,6 +20,6 @@ public interface OrderService{
     List<OrderDto> getOrdersOfUser(String id);
 
      //get orders
-    //PageableResponse<OrderDto> getOrders(int pageNumber,int pageSize,String sortBy,String sortDir);
+    PageableResponse<OrderDto> getOrders(int pageNumber,int pageSize,String sortBy,String sortDir);
 
 }
