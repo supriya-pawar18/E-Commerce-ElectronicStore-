@@ -3,10 +3,7 @@ package com.electronicstore.electronicStoreApp.dto;
 import com.electronicstore.electronicStoreApp.entites.OrderItem;
 import com.electronicstore.electronicStoreApp.entites.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderDto {
