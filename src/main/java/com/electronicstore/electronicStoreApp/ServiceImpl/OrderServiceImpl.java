@@ -1,6 +1,7 @@
 package com.electronicstore.electronicStoreApp.ServiceImpl;
 
 import com.electronicstore.electronicStoreApp.ServiceI.OrderService;
+import com.electronicstore.electronicStoreApp.dto.CreateOrderRequest;
 import com.electronicstore.electronicStoreApp.dto.OrderDto;
 import com.electronicstore.electronicStoreApp.dto.PageableResponse;
 import com.electronicstore.electronicStoreApp.entites.*;
@@ -33,7 +34,9 @@ public class OrderServiceImpl implements OrderService {
     private ModelMapper modelMapper;
 
     @Override
-    public OrderDto createOrder(OrderDto orderDto, String id, String cartId) {
+    public OrderDto createOrder(CreateOrderRequest orderDto) {
+       String id=orderDto.getId();
+       String cartId=orderDto.getCartId();
 
         //fetch user
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with given id"));
@@ -50,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
                 .billingPhone(orderDto.getBillingPhone())
                 .billingAddress(orderDto.getBillingAddress())
                 .orderDate(new Date())
-                .deliveredDate(orderDto.getDeliveredDate())
+                .deliveredDate(null)
                 .paymentStatus(orderDto.getPaymentStatus())
                 .orderStatus(orderDto.getOrderStatus())
                 .orderId(UUID.randomUUID().toString())

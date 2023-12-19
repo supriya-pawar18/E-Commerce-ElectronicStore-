@@ -3,7 +3,6 @@ package com.electronicstore.electronicStoreApp.dto;
 import lombok.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -18,6 +17,7 @@ public class CreateOrderRequest {
     private String id;
     private String orderStatus="PENDING";
     private String paymentStatus="NOTPAID";
-    private UserDto user;
-    private List<OrderItemDto> orderItems=new ArrayList<>();
+    private String billingAddress;
+    private String billingPhone;
+    private String billingName;
 }
