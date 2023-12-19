@@ -1,32 +1,23 @@
 package com.electronicstore.electronicStoreApp.dto;
 
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
+@Getter
 @Builder
-public class OrderDto {
+@ToString
+public class CreateOrderRequest {
 
-    @Id
-    private  String orderId;
+    private String cartId;
+    private String id;
     private String orderStatus="PENDING";
-
     private String paymentStatus="NOTPAID";
-    private int orderAmount;
-    private String billingAddress;
-    private String billingPhone;
-    private String billingName;
-    private Date orderDat=new Date();
-    private Date deliveredDate;
     private UserDto user;
     private List<OrderItemDto> orderItems=new ArrayList<>();
-
-
 }
