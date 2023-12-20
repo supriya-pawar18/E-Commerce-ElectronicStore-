@@ -39,9 +39,9 @@ public class OrderServiceImpl implements OrderService {
     private ModelMapper modelMapper;
 
     @Override
-    public OrderDto createOrder(CreateOrderRequest orderDto) {
-       String id=orderDto.getId();
-       String cartId=orderDto.getCartId();
+    public OrderDto createOrder(CreateOrderRequest request) {
+       String id=request.getId();
+       String cartId=request.getCartId();
 
         //fetch user
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with given id"));
@@ -54,13 +54,13 @@ public class OrderServiceImpl implements OrderService {
         }
 
         Order order = Order.builder()
-                .billingName(orderDto.getBillingName())
-                .billingPhone(orderDto.getBillingPhone())
-                .billingAddress(orderDto.getBillingAddress())
+                .billingName(request.getBillingName())
+                .billingPhone(request.getBillingPhone())
+                .billingAddress(request.getBillingAddress())
                 .orderDate(new Date())
                 .deliveredDate(null)
-                .paymentStatus(orderDto.getPaymentStatus())
-                .orderStatus(orderDto.getOrderStatus())
+                .paymentStatus(request.getPaymentStatus())
+                .orderStatus(request.getOrderStatus())
                 .orderId(UUID.randomUUID().toString())
                 .user(user)
                 .build();

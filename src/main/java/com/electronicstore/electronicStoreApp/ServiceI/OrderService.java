@@ -11,7 +11,7 @@ import java.util.List;
 public interface OrderService{
 
      //create order
-     OrderDto createOrder(CreateOrderRequest orderDto);
+     OrderDto createOrder(CreateOrderRequest request);
 
      //remove order
     void removeOrder(String orderId);
