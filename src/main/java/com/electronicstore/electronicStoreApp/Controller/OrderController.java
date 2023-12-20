@@ -23,4 +23,9 @@ public class OrderController {
         OrderDto order = orderService.createOrder(request);
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
+
+    public void removeOrder(String orderId) {
+    }
+
 }
+
