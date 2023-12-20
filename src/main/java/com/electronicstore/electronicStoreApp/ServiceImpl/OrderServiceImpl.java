@@ -89,10 +89,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void removeOrder(String orderId) {
 
+        Order order = orderRepo.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("Order not found !!"));
+        orderRepo.delete(order);
     }
 
     @Override
     public List<OrderDto> getOrdersOfUser(String id) {
+
         return null;
     }
 

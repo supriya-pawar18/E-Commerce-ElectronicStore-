@@ -52,7 +52,8 @@ public class CartServiceImpl implements CartService {
 
         logger.info("Initiating dao request for adding items into cart  with user id {}:",id);
         int quantity = request.getQuantity();
-        String productId = String.valueOf(request.getProductId());
+
+        String productId = request.getProductId();
 
         if (quantity <= 0) {
             throw new BadApiRequestException(AppContants.INVALID_QUANTITY);
