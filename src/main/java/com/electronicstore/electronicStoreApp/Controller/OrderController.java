@@ -4,6 +4,7 @@ import com.electronicstore.electronicStoreApp.ServiceI.OrderService;
 import com.electronicstore.electronicStoreApp.dto.ApiResponse;
 import com.electronicstore.electronicStoreApp.dto.CreateOrderRequest;
 import com.electronicstore.electronicStoreApp.dto.OrderDto;
+import com.electronicstore.electronicStoreApp.dto.PageableResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +44,16 @@ public class OrderController {
 
         List<OrderDto> ordersOfUser = orderService.getOrdersOfUser(id);
         return new ResponseEntity<>(ordersOfUser,HttpStatus.OK);
+    }
+
+    public ResponseEntity<PageableResponse<OrderDto>> getOrders(@PathVariable String id,
+            @RequestParam(value = "pageNumber",defaultValue = "0",required = false) int pageNumber,
+            @RequestParam(value = "pageSize",defaultValue = "10",required = false) int pageSize,
+            @RequestParam(value = "sortBy",defaultValue = "title",required = false) String sortBy,
+            @RequestParam(value = "sortDir",defaultValue = "asc",required = false) String sortDir
+    ){
+        PageableResponse<OrderDto> orders = orderService.getOrders(pageNumber, pageSize, sortBy, sortDir);
+        return new ResponseEntity<>(orders,HttpStatus.OK);
     }
 
 }
