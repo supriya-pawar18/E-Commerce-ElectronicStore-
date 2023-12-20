@@ -96,7 +96,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderDto> getOrdersOfUser(String id) {
 
-        return null;
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        List<Order> orders = orderRepo.findByUser(user);
+        List<OrderDto> orderDtos = orders.stream().map(order -> modelMapper.map(order, OrderDto.class)).collect(Collectors.toList());
+        return orderDtos;
     }
 
     @Override
