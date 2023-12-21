@@ -12,6 +12,8 @@ import com.electronicstore.electronicStoreApp.repository.CartRepository;
 import com.electronicstore.electronicStoreApp.repository.OrderRepo;
 import com.electronicstore.electronicStoreApp.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -38,9 +40,14 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ModelMapper modelMapper;
 
+    private Logger logger= LoggerFactory.getLogger(OrderServiceImpl.class);
+
+
     @Override
     public OrderDto createOrder(CreateOrderRequest request) {
-       String id=request.getId();
+        logger.info("Initiating dao request for creating order");
+
+        String id=request.getId();
        String cartId=request.getCartId();
 
         //fetch user
@@ -87,32 +94,37 @@ public class OrderServiceImpl implements OrderService {
         cart.getItems().clear();
         cartRepository.save(cart);
         Order orderSaved = orderRepo.save(order);
-
+        logger.info("Completed dao call to create order");
         return modelMapper.map(orderSaved,OrderDto.class);
     }
 
     @Override
     public void removeOrder(String orderId) {
-
+        logger.info("Initiating dao request for removing order with orderId{} :",orderId);
         Order order = orderRepo.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("Order not found !!"));
+
+        logger.info("Completed dao call to remove order with userId:{}", orderId);
         orderRepo.delete(order);
     }
 
     @Override
     public List<OrderDto> getOrdersOfUser(String id) {
-
+        logger.info("Initiating dao request for getting order with user id{}:",id);
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
         List<Order> orders = orderRepo.findByUser(user);
         List<OrderDto> orderDtos = orders.stream().map(order -> modelMapper.map(order, OrderDto.class)).collect(Collectors.toList());
+        logger.info("Completed dao call to get order of user with userId:{}", id);
         return orderDtos;
     }
 
     @Override
-    public PageableResponse<OrderDto> getOrders(int pageNumber, int pageSize, String sortBy, String sortDir) {
+    public PageableResponse<OrderDto> getOrders(String id,int pageNumber, int pageSize, String sortBy, String sortDir) {
 
         Sort sort=(sortDir.equalsIgnoreCase("desc")) ? (Sort.by(sortBy).descending()) : (Sort.by(sortBy).ascending());
         Pageable pageable= PageRequest.of(pageNumber,pageSize,sort);
         Page<Order> page = orderRepo.findAll(pageable);
+
+        logger.info("Completed dao call to get order with userId:{}",id);
         return Helper.getPageableResponse(page,OrderDto.class);
 
     }
