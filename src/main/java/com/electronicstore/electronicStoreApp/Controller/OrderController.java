@@ -46,6 +46,7 @@ public class OrderController {
         return new ResponseEntity<>(ordersOfUser,HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
     public ResponseEntity<PageableResponse<OrderDto>> getOrders(@PathVariable String id,
             @RequestParam(value = "pageNumber",defaultValue = "0",required = false) int pageNumber,
             @RequestParam(value = "pageSize",defaultValue = "10",required = false) int pageSize,

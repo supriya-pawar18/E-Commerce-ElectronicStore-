@@ -16,7 +16,7 @@ public class CreateOrderRequest {
 
     @NotBlank(message = "Cart id is required")
     private String cartId;
-    @NotBlank(message = "Cart id is required")
+    @NotBlank(message = "user id is required")
     private String id;
     private String orderStatus="PENDING";
     private String paymentStatus="NOTPAID";
