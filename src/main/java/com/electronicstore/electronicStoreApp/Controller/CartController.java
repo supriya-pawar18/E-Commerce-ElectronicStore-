@@ -24,7 +24,7 @@ public class CartController {
     private Logger logger= LoggerFactory.getLogger(CartController.class);
 
 
-    @PostMapping("/{id}")
+    @PostMapping("/addItemToCart/{id}")
     public ResponseEntity<CartDto> addItemToCart(@PathVariable String id,@RequestBody AddItemToCartRequest request) {
         logger.info("Initiating dao request for add item to cart with user id {}:",id);
         CartDto cartDto = cartService.addItemToCart(id, request);

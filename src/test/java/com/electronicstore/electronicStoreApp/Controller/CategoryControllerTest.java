@@ -51,7 +51,6 @@ public class CategoryControllerTest {
                 .coverImage("abc.png")
                 .build();
     }
-
     @Test
     public void createCatTest() throws Exception{
 
@@ -69,6 +68,7 @@ public class CategoryControllerTest {
                 .andExpect(jsonPath("$.title").exists());
 
     }
+
 
     private String convertObjectToJsonString(Category category) {
         try{
