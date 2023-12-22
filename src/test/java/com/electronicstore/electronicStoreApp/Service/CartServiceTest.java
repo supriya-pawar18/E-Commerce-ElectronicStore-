@@ -1,27 +1,20 @@
 package com.electronicstore.electronicStoreApp.Service;
 
-import com.electronicstore.electronicStoreApp.dto.CartDto;
-import com.electronicstore.electronicStoreApp.dto.CategoryDto;
 import com.electronicstore.electronicStoreApp.entites.Cart;
 import com.electronicstore.electronicStoreApp.entites.User;
 import com.electronicstore.electronicStoreApp.repository.CartRepository;
 import com.electronicstore.electronicStoreApp.repository.ProductRepo;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.Optional;
-
 @SpringBootTest
-public class CartService {
+public class CartServiceTest {
 
     @Autowired
-    private CartService cartService;
+    private CartServiceTest cartService;
     @MockBean
     private CartRepository cartRepository;
     @Autowired
@@ -51,7 +44,4 @@ public class CartService {
     }
 
 
-    public Object addItemToCart(Object any, String s) {
-        return null;
-    }
 }
