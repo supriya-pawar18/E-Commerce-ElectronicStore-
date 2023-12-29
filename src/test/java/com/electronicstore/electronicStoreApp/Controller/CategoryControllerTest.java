@@ -140,12 +140,12 @@ public class CategoryControllerTest {
 
     }
     @Test
-    public void deleteCategory() throws Exception {
+    public void delete() throws Exception {
 
-        String categorytId="abc";
+        String id="abc";
 
-        Mockito.doNothing().when(categoryService).delete(categorytId);
-        mockMvc.perform(MockMvcRequestBuilders.delete("/category/" + categorytId))
+        Mockito.doNothing().when(categoryService).delete(id);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/category/" + id))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

@@ -33,7 +33,7 @@ public class CartController {
         return new ResponseEntity<>(cartDto, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}/items/{itemId}")
+    @DeleteMapping("/{id}/items/{itemId}")
     public ResponseEntity<ApiResponse> removeItemFromCart( @PathVariable String id,@PathVariable int itemId){
         logger.info("Initiating dao request for remove item from cart with user id {}:",id);
         cartService.removeItemFromCart(id,itemId);

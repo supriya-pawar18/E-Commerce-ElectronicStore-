@@ -91,6 +91,18 @@ public class CartControllerTest{
     }
 
     @Test
+    public void removeItemFromCartTest() throws Exception {
+
+        String id="abc";
+        int itemId=432;
+
+        Mockito.doNothing().when(cartService).removeItemFromCart(id,itemId);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/cart/{id}/items/{itemId}", id, itemId))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
     public void getCartByUserTest() throws Exception {
         AddItemToCartRequest cartRequest = AddItemToCartRequest.builder()
                 .productId("12344")
