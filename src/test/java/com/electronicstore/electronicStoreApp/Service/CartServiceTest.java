@@ -5,11 +5,14 @@ import com.electronicstore.electronicStoreApp.dto.AddItemToCartRequest;
 import com.electronicstore.electronicStoreApp.dto.CartDto;
 import com.electronicstore.electronicStoreApp.dto.CategoryDto;
 import com.electronicstore.electronicStoreApp.entites.Cart;
+import com.electronicstore.electronicStoreApp.entites.CartItem;
 import com.electronicstore.electronicStoreApp.entites.Product;
 import com.electronicstore.electronicStoreApp.entites.User;
+import com.electronicstore.electronicStoreApp.repository.CartIemRepo;
 import com.electronicstore.electronicStoreApp.repository.CartRepository;
 import com.electronicstore.electronicStoreApp.repository.ProductRepo;
 import com.electronicstore.electronicStoreApp.repository.UserRepository;
+import org.jboss.jandex.AnnotationInstanceBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,6 +23,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -36,10 +41,15 @@ public class CartServiceTest {
     private ProductRepo productRepo;
     @MockBean
     private UserRepository userRepository;
+
+    @MockBean
+    private CartIemRepo cartIemRepo;
     Cart cart;
 
     User user;
     Product product;
+    List<CartItem> items = new ArrayList<>();
+
 
     @BeforeEach
     private void init() {
@@ -69,6 +79,9 @@ public class CartServiceTest {
                 .category(null)
                 .stock(true)
                 .build();
+
+        items.add(new CartItem(1, product, 2, 30, cart));
+
     }
 
 //    @Test
@@ -92,4 +105,28 @@ public class CartServiceTest {
 //
 //        //Assertions.assertEquals("mobile", categoryDto.getTitle());
 //    }
+
+    @Test
+    void RemoveCartItemTest() {
+        String id = "abcd";
+        int cartItem = 1;
+
+        Mockito.when(cartIemRepo.findById(Mockito.any())).thenReturn(Optional.ofNullable(items.get(0)));
+        cartService.removeItemFromCart(id, cartItem);
+        Mockito.verify(cartIemRepo, Mockito.times(1)).delete(items.get(0));
+
+    }
+
+    @Test
+    public void getCartByUserTest() {
+        String id = "abcd";
+        Mockito.when(userRepository.findById(Mockito.anyString())).thenReturn(Optional.ofNullable(user));
+        Mockito.when(cartRepository.findByUser(Mockito.any())).thenReturn(Optional.ofNullable(cart));
+        CartDto cartDto = cartService.getCartByUser(id);
+        Assertions.assertNotNull(cartDto);
+        Assertions.assertEquals(cartDto.getUser().getName(), "Supriya", "User name not matched");
+        Assertions.assertEquals(cartDto.getCartId(), cart.getCartId(), "Cart id not matched");
+
+
+    }
 }
