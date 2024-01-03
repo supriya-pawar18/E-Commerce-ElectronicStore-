@@ -98,4 +98,15 @@ public class OrderControllerTest {
             return null;
         }
     }
+
+    @Test
+    public void removeOrderTest() throws Exception {
+
+        String orderId="abc";
+
+        Mockito.doNothing().when(orderService).removeOrder(orderId);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/remove/{orderId}", orderId))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
 }
