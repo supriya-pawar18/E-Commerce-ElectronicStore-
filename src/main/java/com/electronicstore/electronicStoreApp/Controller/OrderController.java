@@ -25,7 +25,7 @@ public class OrderController {
     private Logger logger= LoggerFactory.getLogger(OrderController.class);
 
 
-    @PostMapping("/create")
+    @PostMapping("/")
     public ResponseEntity<OrderDto> createOrder(@RequestBody CreateOrderRequest request) {
         logger.info("Initiating dao request for creating order");
         OrderDto order = orderService.createOrder(request);
