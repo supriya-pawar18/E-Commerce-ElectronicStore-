@@ -94,7 +94,6 @@ public class CartServiceTest {
         String id = "1234";
 
         Mockito.when(userRepository.findById(id)).thenReturn(Optional.of(user));
-
         Mockito.when(cartRepository.findByUser(user)).thenReturn(Optional.of(cart));
 
         CartDto cartDto = cartService.addItemToCart(id, cartRequest);
@@ -103,7 +102,6 @@ public class CartServiceTest {
         System.out.println(cart);
         Assertions.assertNotNull(cart);
 
-        //Assertions.assertEquals("mobile", categoryDto.getTitle());
     }
 
     @Test
