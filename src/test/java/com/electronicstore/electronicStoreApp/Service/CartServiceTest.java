@@ -84,27 +84,27 @@ public class CartServiceTest {
 
     }
 
-//    @Test
-//    public void addItemToCartTest() {
-//        AddItemToCartRequest cartRequest = AddItemToCartRequest.builder()
-//                .productId("12344")
-//                .quantity(123)
-//                .build();
-//
-//        String id = "1234";
-//
-//        Mockito.when(userRepository.findById(id)).thenReturn(Optional.of(user));
-//
-//        Mockito.when(cartRepository.findByUser(user)).thenReturn(Optional.of(cart));
-//
-//        CartDto cartDto = cartService.addItemToCart(id, cartRequest);
-//        Cart updateCart = cartRepository.save(cart);
-//      //  Assertions.assertNull(updateCart);
-//        System.out.println(cart);
-//      //  Assertions.assertNotNull(cart);
-//
-//        //Assertions.assertEquals("mobile", categoryDto.getTitle());
-//    }
+    @Test
+    public void addItemToCartTest() {
+        AddItemToCartRequest cartRequest = AddItemToCartRequest.builder()
+                .productId("12344")
+                .quantity(123)
+                .build();
+
+        String id = "1234";
+
+        Mockito.when(userRepository.findById(id)).thenReturn(Optional.of(user));
+
+        Mockito.when(cartRepository.findByUser(user)).thenReturn(Optional.of(cart));
+
+        CartDto cartDto = cartService.addItemToCart(id, cartRequest);
+        Cart updateCart = cartRepository.save(cart);
+        Assertions.assertNull(updateCart);
+        System.out.println(cart);
+        Assertions.assertNotNull(cart);
+
+        //Assertions.assertEquals("mobile", categoryDto.getTitle());
+    }
 
     @Test
     void RemoveCartItemTest() {
