@@ -2,6 +2,7 @@ package com.electronicstore.electronicStoreApp.Service;
 
 import com.electronicstore.electronicStoreApp.ServiceI.CartService;
 import com.electronicstore.electronicStoreApp.ServiceI.OrderService;
+import com.electronicstore.electronicStoreApp.dto.CartDto;
 import com.electronicstore.electronicStoreApp.dto.CreateOrderRequest;
 import com.electronicstore.electronicStoreApp.dto.OrderDto;
 import com.electronicstore.electronicStoreApp.entites.*;
@@ -45,6 +46,8 @@ public class OrderServiceTest {
     User user;
     Product product;
     List<OrderItem> items = new ArrayList<>();
+    List<OrderItem> orderItems = new ArrayList<>();
+
 
     @BeforeEach
     private void init() {
@@ -79,7 +82,9 @@ public class OrderServiceTest {
                 .billingName("Supriya").billingAddress("Pune").billingPhone("987456321").orderDate(new Date())
                 .user(user).build();
 
-      //  items.add(new CartItem(1, product, 2, 30, cart));
+        orderItems.add(new OrderItem(2, 5, 25, product, order));
+
+        //  items.add(new CartItem(1, product, 2, 30, cart));
 
     }
 
@@ -118,6 +123,31 @@ public class OrderServiceTest {
         Mockito.when(orderRepo.findById(orderId)).thenReturn(Optional.of(order));
         orderService.removeOrder(orderId);
         Mockito.verify(orderRepo, Mockito.times(1)).delete(order);
+    }
+
+    @Test
+    public void getOrderOfUserTest() {
+        Order order2 = Order.builder().orderId("abd").orderStatus("PENDING").paymentStatus("NOTPAID").orderAmount(200)
+                .billingName("Supriya").billingAddress("Pune").billingPhone("987456321").orderDate(new Date())
+                .user(user).orderItems(orderItems).build();
+
+        Order order3 = Order.builder().orderId("acd").orderStatus("PENDING").paymentStatus("NOTPAID").orderAmount(200)
+                .billingName("ashu").billingAddress("Pune").billingPhone("9763239803").orderDate(new Date())
+                .user(user).orderItems(orderItems).build();
+
+
+        List<Order> orderList = new ArrayList<>();
+        orderList.add(order);
+        orderList.add(order2);
+        orderList.add(order3);
+        String id = "abcd";
+        Mockito.when(userRepository.findById(Mockito.anyString())).thenReturn(Optional.ofNullable(user));
+        Mockito.when(orderRepo.findByUser(Mockito.any())).thenReturn(orderList);
+
+        List<OrderDto> orderOfUser = orderService.getOrdersOfUser(id);
+
+        Assertions.assertEquals(orderList.size(), orderOfUser.size());
+
     }
 
     }
