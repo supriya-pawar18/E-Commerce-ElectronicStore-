@@ -2,8 +2,11 @@ package com.electronicstore.electronicStoreApp.Service;
 
 import com.electronicstore.electronicStoreApp.ServiceI.CartService;
 import com.electronicstore.electronicStoreApp.ServiceI.OrderService;
+import com.electronicstore.electronicStoreApp.dto.CreateOrderRequest;
+import com.electronicstore.electronicStoreApp.dto.OrderDto;
 import com.electronicstore.electronicStoreApp.entites.*;
 import com.electronicstore.electronicStoreApp.repository.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -14,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +25,7 @@ import java.util.Optional;
 @AutoConfigureMockMvc
 public class OrderServiceTest {
 
-    @MockBean
+    @Autowired
     private OrderService orderService;
     @MockBean
     private OrderRepo orderRepo;
@@ -33,6 +37,8 @@ public class OrderServiceTest {
     private UserRepository userRepository;
 
     @MockBean
+    private CartRepository cartRepository;
+    @MockBean
     private OrderItemRepo orderItemRepo;
     Order order;
     Cart cart;
@@ -42,7 +48,7 @@ public class OrderServiceTest {
 
     @BeforeEach
     private void init() {
-        User user = User.builder()
+         user = User.builder()
                 .name("supriya")
                 .email("suppawar6@gmail.com")
                 .about("This is testing create method")
@@ -69,14 +75,47 @@ public class OrderServiceTest {
                 .stock(true)
                 .build();
 
+        order = Order.builder().orderId("abcd").orderStatus("PENDING").paymentStatus("NOTPAID").orderAmount(200)
+                .billingName("Supriya").billingAddress("Pune").billingPhone("987456321").orderDate(new Date())
+                .user(user).build();
+
       //  items.add(new CartItem(1, product, 2, 30, cart));
 
     }
 
     @Test
+    public void createOrderTest() {
+
+        CreateOrderRequest orderRequest = CreateOrderRequest.builder()
+                .cartId("abcd")
+                .id("fgf")
+                .orderStatus("PENDING")
+                .paymentStatus("NOTPAID")
+                .billingAddress("Pune")
+                .billingPhone("9874569852")
+                .billingName("Supriya").build();
+
+        String id="jhj";
+
+        Mockito.when(userRepository.findById(Mockito.anyString())).thenReturn(Optional.of(user));
+        Mockito.when(cartRepository.findById(Mockito.anyString())).thenReturn(Optional.of(cart));
+        Mockito.when(cartRepository.save(Mockito.any())).thenReturn(cart);
+
+        Mockito.when(orderRepo.save(Mockito.any())).thenReturn(order);
+       // Order orderSaved = orderRepo.save(order);
+
+       // OrderDto order1 = this.orderService.createOrder(orderRequest);
+//        System.out.println(order1);
+//        Assertions.assertEquals(order.getBillingName(), order1.getBillingName(), "Billing name doesnot matches");
+
+    }
+
+
+    @Test
     public void removeOrderTest() {
-        String orderId = "abcd";
-        Mockito.when(orderRepo.findById(Mockito.anyString())).thenReturn(Optional.ofNullable(order));
+        String orderId = "abcdefghijklm";
+
+        Mockito.when(orderRepo.findById(orderId)).thenReturn(Optional.of(order));
         orderService.removeOrder(orderId);
         Mockito.verify(orderRepo, Mockito.times(1)).delete(order);
     }

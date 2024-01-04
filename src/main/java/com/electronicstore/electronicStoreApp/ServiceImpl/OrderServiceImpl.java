@@ -54,6 +54,7 @@ public class OrderServiceImpl implements OrderService {
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with given id"));
         //fetch cart
         Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new ResourceNotFoundException("cart with given id not found"));
+
         List<CartItem> cartItems=cart.getItems();
 
         if(cartItems.size() <= 0){
