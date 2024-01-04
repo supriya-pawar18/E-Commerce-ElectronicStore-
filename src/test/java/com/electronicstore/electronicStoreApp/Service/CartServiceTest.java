@@ -124,7 +124,5 @@ public class CartServiceTest {
      //   Assertions.assertNotNull(cartDto);
       //  Assertions.assertEquals(cartDto.getUser().getName(), "Supriya", "User name not matched");
         Assertions.assertEquals(cartDto.getCartId(), cart.getCartId(), "Cart id not matched");
-
-
     }
 }
