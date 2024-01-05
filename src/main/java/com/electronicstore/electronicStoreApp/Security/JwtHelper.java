@@ -24,7 +24,6 @@ class JwTHelper {
     public String getUsernameFromToken(String token) {
 
         return getClaimFromToken(token, Claims::getSubject);
-
     }
 
     // retrieve Expiration date from token
