@@ -1,7 +1,7 @@
 package com.electronicstore.electronicStoreApp.entites;
-
-import jakarta.persistence.*;
 import lombok.*;
+
+import javax.persistence.*;
 
 @Setter
 @Getter

@@ -2,8 +2,8 @@ package com.electronicstore.electronicStoreApp.dto;
 
 import com.electronicstore.electronicStoreApp.entites.CartItem;
 import com.electronicstore.electronicStoreApp.entites.User;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import javax.persistence.*;
+
 import lombok.*;
 
 import java.util.ArrayList;

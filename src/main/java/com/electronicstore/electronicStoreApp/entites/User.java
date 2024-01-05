@@ -1,8 +1,7 @@
 package com.electronicstore.electronicStoreApp.entites;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
-import org.hibernate.Length;
 
 import java.util.ArrayList;
 import java.util.List;

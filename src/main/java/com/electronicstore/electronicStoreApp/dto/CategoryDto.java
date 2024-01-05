@@ -1,12 +1,11 @@
 package com.electronicstore.electronicStoreApp.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import lombok.*;
-import org.springframework.web.ErrorResponse;
+//import org.springframework.web.ErrorResponse;
 
 @Getter
 @Setter

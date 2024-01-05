@@ -1,7 +1,7 @@
 package com.electronicstore.electronicStoreApp.dto;
 
 import com.electronicstore.electronicStoreApp.entites.Product;
-import jakarta.persistence.OneToOne;
+import javax.persistence.*;
 import lombok.*;
 
 @Builder

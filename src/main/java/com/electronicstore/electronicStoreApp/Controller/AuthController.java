@@ -3,14 +3,17 @@ package com.electronicstore.electronicStoreApp.Controller;
 import com.electronicstore.electronicStoreApp.Security.JwTHelper;
 import com.electronicstore.electronicStoreApp.ServiceI.UserServiceI;
 import com.electronicstore.electronicStoreApp.dto.JwtRequest;
+import com.electronicstore.electronicStoreApp.dto.JwtResponse;
 import com.electronicstore.electronicStoreApp.dto.UserDto;
 import com.electronicstore.electronicStoreApp.exception.BadApiRequestException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,19 +38,28 @@ public class AuthController {
     @Autowired
     private ModelMapper mapper;
 
-//    @PostMapping("/login")
-//    public ResponseEntity<JwTHelper> login(@RequestBody JwtRequest request){
-//         this.doAuthenticate(request.getEmail(),request.getPassword());
-//    }
 
-//    private void doAuthenticate(String email, String password) {
-//        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(email, password);
-//        try {
-//            authenticationManager.authenticate(token);
-//        } catch (BadCredentialsException e) {
-//            throw new BadApiRequestException("Invalid username and Password");
-//        }
-//    }
+    @PostMapping("/login")
+    public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest jwtRequest) {
+        this.doAuthenticate(jwtRequest.getEmail(), jwtRequest.getPassword());
+        UserDetails userDetails = userDetailsService.loadUserByUsername(jwtRequest.getEmail());
+        String token = this.jwtHelper.generateToken(userDetails);
+        UserDto userDto = mapper.map(userDetails, UserDto.class);
+
+        JwtResponse response = JwtResponse.builder().jwtToken(token).user(userDto).build();
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+
+    private void doAuthenticate(String email, String password) {
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(email, password);
+        try {
+            authenticationManager.authenticate(token);
+        } catch (BadCredentialsException e) {
+            throw new BadApiRequestException("Invalid username and Password");
+        }
+    }
 
     @GetMapping("/current")
     public ResponseEntity<UserDto> getCurrentUser(Principal principal) {

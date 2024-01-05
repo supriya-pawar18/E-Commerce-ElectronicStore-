@@ -1,6 +1,6 @@
 package com.electronicstore.electronicStoreApp.dto;
 
-import jakarta.persistence.Column;
+import javax.persistence.*;
 import lombok.*;
 
 import javax.xml.crypto.Data;

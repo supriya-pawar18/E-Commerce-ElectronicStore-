@@ -1,6 +1,6 @@
 package com.electronicstore.electronicStoreApp.dto;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;

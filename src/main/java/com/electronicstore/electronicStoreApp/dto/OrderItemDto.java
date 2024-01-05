@@ -2,7 +2,7 @@ package com.electronicstore.electronicStoreApp.dto;
 
 import com.electronicstore.electronicStoreApp.entites.Order;
 import com.electronicstore.electronicStoreApp.entites.Product;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 @Setter

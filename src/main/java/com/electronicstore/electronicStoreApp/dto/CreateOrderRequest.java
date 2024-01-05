@@ -1,6 +1,8 @@
 package com.electronicstore.electronicStoreApp.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+
 import lombok.*;
 
 import java.util.ArrayList;

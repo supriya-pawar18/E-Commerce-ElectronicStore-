@@ -1,6 +1,6 @@
 package com.electronicstore.electronicStoreApp.entites;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 import javax.xml.crypto.Data;

@@ -1,8 +1,10 @@
 package com.electronicstore.electronicStoreApp.validate;
 
-import jakarta.validation.Constraint;
-import jakarta.validation.Payload;
+import javax.persistence.*;
 
+
+import javax.validation.Constraint;
+import javax.validation.Payload;
 import java.lang.annotation.*;
 
 @Target({ElementType.FIELD,ElementType.PARAMETER})

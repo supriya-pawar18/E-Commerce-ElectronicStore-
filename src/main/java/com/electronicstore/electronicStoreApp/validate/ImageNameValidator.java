@@ -1,9 +1,9 @@
 package com.electronicstore.electronicStoreApp.validate;
 
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
 import org.slf4j.LoggerFactory;
 
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 import java.util.logging.Logger;
 
 public class ImageNameValidator implements ConstraintValidator<ImageNameValid,String> {
