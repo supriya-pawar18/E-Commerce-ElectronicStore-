@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
-class JwTHelper {
+public class JwTHelper {
 
     @Value("${jwt.secret}")
     private String secret;
