@@ -11,13 +11,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-//import io.jsonwebtoken.Claims;
 
 @Component
-class JwTHelper{
+class JwTHelper {
 
     @Value("${jwt.secret}")
-    private String secret ;
+    private String secret;
 
     public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 
@@ -77,4 +76,5 @@ class JwTHelper{
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
 
     }
+
 }
