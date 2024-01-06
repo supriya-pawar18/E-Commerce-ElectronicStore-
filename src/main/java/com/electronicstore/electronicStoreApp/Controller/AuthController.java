@@ -6,6 +6,7 @@ import com.electronicstore.electronicStoreApp.dto.JwtRequest;
 import com.electronicstore.electronicStoreApp.dto.JwtResponse;
 import com.electronicstore.electronicStoreApp.dto.UserDto;
 import com.electronicstore.electronicStoreApp.exception.BadApiRequestException;
+import com.google.api.client.http.javanet.NetHttpTransport;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
@@ -38,26 +40,24 @@ public class AuthController {
     @Autowired
     private ModelMapper mapper;
 
-
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest jwtRequest) {
+
         this.doAuthenticate(jwtRequest.getEmail(), jwtRequest.getPassword());
         UserDetails userDetails = userDetailsService.loadUserByUsername(jwtRequest.getEmail());
         String token = this.jwtHelper.generateToken(userDetails);
         UserDto userDto = mapper.map(userDetails, UserDto.class);
 
         JwtResponse response = JwtResponse.builder().jwtToken(token).user(userDto).build();
-
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
 
     private void doAuthenticate(String email, String password) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(email, password);
         try {
             authenticationManager.authenticate(token);
         } catch (BadCredentialsException e) {
-            throw new BadApiRequestException("Invalid username and Password");
+            throw new BadApiRequestException("Invalid username and Password !!");
         }
     }
 
@@ -65,6 +65,18 @@ public class AuthController {
     public ResponseEntity<UserDto> getCurrentUser(Principal principal) {
         String name = principal.getName();
         return new ResponseEntity<>(mapper.map(userDetailsService.loadUserByUsername(name), UserDto.class), HttpStatus.OK);
+    }
+
+    //lohin with google
+    @PostMapping("/google")
+    public ResponseEntity<JwtResponse> loginWithGoogle(@RequestBody Map<String,Object> data){
+         //get the id token from request
+         String idToke=data.get("idToken").toString();
+
+        NetHttpTransport netHttpTransport = new NetHttpTransport();
+
+        return null;
+       // Jackson
     }
 
 }
