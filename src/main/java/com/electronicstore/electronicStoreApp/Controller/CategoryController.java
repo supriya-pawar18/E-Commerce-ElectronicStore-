@@ -70,7 +70,7 @@ public class CategoryController {
     /**
      * *@param categoryDto
      * @return http status for Delete data
-     * @apiNote This Api is used to Delete Category in databased
+     * @apiNote This Api is used to Delete Category from databased
      */
     @DeleteMapping("/{categoryId}")
     public ResponseEntity<ApiResponse> deleteCategory(@PathVariable String categoryId){

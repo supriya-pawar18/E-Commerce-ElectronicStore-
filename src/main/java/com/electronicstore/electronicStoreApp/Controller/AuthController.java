@@ -68,15 +68,15 @@ public class AuthController {
     }
 
     //lohin with google
-    @PostMapping("/google")
-    public ResponseEntity<JwtResponse> loginWithGoogle(@RequestBody Map<String,Object> data){
-         //get the id token from request
-         String idToke=data.get("idToken").toString();
-
-        NetHttpTransport netHttpTransport = new NetHttpTransport();
-
-        return null;
-       // Jackson
-    }
+//    @PostMapping("/google")
+//    public ResponseEntity<JwtResponse> loginWithGoogle(@RequestBody Map<String,Object> data){
+//         //get the id token from request
+//         String idToke=data.get("idToken").toString();
+//
+//        NetHttpTransport netHttpTransport = new NetHttpTransport();
+//
+//        return null;
+//       // Jackson
+//    }
 
 }

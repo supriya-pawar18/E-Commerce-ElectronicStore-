@@ -22,7 +22,11 @@ public class CartController {
 
     private Logger logger= LoggerFactory.getLogger(CartController.class);
 
-
+    /**
+     * *@param user id
+     * @return http status for add Item To Cart
+     * @apiNote This Api is used to Delete Category from databased
+     */
     @PostMapping("/addItemToCart/{id}")
     public ResponseEntity<CartDto> addItemToCart(@PathVariable String id,@RequestBody AddItemToCartRequest request) {
         logger.info("Initiating dao request for add item to cart with user id {}:",id);
@@ -32,6 +36,11 @@ public class CartController {
         return new ResponseEntity<>(cartDto, HttpStatus.OK);
     }
 
+    /**
+     * *@param cartDto
+     * @return http status for Delete data
+     * @apiNote This Api is used to Remove Items from cart
+     */
     @DeleteMapping("/{id}/items/{itemId}")
     public ResponseEntity<ApiResponse> removeItemFromCart( @PathVariable String id,@PathVariable int itemId){
         logger.info("Initiating dao request for remove item from cart with user id {}:",id);
@@ -45,6 +54,12 @@ public class CartController {
         logger.info("Completed dao call to remove item from cart with userId:{}", id);
         return new ResponseEntity<>(apiResponse,HttpStatus.OK);
     }
+
+    /**
+     * *@param cartDto
+     * @return http status for Clear cart
+     * @apiNote This Api is used to Clear Cart  using user id
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse> clearCart(@PathVariable String id){
         logger.info("Initiating dao request for clear item from cart with user id {}:",id);
@@ -59,6 +74,11 @@ public class CartController {
         return new ResponseEntity<>(apiResponse,HttpStatus.OK);
     }
 
+    /**
+     * *@param cartDto
+     * @return http status for GetCartByUser
+     * @apiNote This Api is used to GetCartByUser from databased
+     */
     @GetMapping("/{id}")
     public ResponseEntity<CartDto> getCartByUser(@PathVariable String id) {
         logger.info("Initiating dao request for get cart item by user from cart with user id {}:",id);
