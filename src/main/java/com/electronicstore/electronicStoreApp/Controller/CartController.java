@@ -74,7 +74,7 @@ public class CartController {
         return new ResponseEntity<>(apiResponse,HttpStatus.OK);
     }
 
-    /**
+    /*
      * *@param cartDto
      * @return http status for GetCartByUser
      * @apiNote This Api is used to GetCartByUser from databased

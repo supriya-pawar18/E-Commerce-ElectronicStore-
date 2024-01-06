@@ -24,7 +24,11 @@ public class OrderController {
 
     private Logger logger= LoggerFactory.getLogger(OrderController.class);
 
-
+    /*
+     *@param orderDto
+     * @return http status for Create Order
+     * @apiNote This Api is used to Create Order in databased
+     */
     @PostMapping("/create")
     public ResponseEntity<OrderDto> createOrder(@RequestBody CreateOrderRequest request) {
         logger.info("Initiating dao request for creating order");
@@ -33,6 +37,11 @@ public class OrderController {
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
 
+    /*
+     *@param orderDto
+     * @return http status for Remove order
+     * @apiNote This Api is used to Remove Order from databased
+     */
     @DeleteMapping("/remove/{orderId}")
     public ResponseEntity<ApiResponse> removeOrder(@PathVariable String orderId) {
         logger.info("Initiating dao request for removing order with orderId {}:",orderId);
@@ -46,6 +55,11 @@ public class OrderController {
         return new ResponseEntity<>(apiResponse,HttpStatus.OK);
     }
 
+    /*
+     *@param orderDto
+     * @return http status for GetOrdersOfUser
+     * @apiNote This Api is used to GetOrdersOfUser from databased
+     */
     //get orders of user
     @GetMapping("/user/{id}")
     public  ResponseEntity<List<OrderDto>> getOrdersOfUser(@PathVariable String id){
@@ -55,6 +69,11 @@ public class OrderController {
         return new ResponseEntity<>(ordersOfUser,HttpStatus.OK);
     }
 
+    /*
+     *@param orderDto
+     * @return http status for GetOrders
+     * @apiNote This Api is used to GetAllOrders from databased
+     */
     @GetMapping("/{id}")
     public ResponseEntity<PageableResponse<OrderDto>> getOrders(@PathVariable String id,
             @RequestParam(value = "pageNumber",defaultValue = "0",required = false) int pageNumber,
