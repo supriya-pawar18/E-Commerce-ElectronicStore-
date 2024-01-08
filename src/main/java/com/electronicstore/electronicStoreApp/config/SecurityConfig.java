@@ -70,10 +70,5 @@ public class SecurityConfig {
         return builder.getAuthenticationManager();
     }
 
-//    UserDetails normal = User.builder()
-//            .name("supriya")
-//            .password(passwordEncoder().encode(("supriya")))
-//            .roles("NORMAL")
-//            .build();
 
 }
